@@ -1,0 +1,45 @@
+# robots.txt for Zelvora Studio
+# Designed for universal discovery by search engines and AI agents
+
+User-agent: *
+Allow: /
+Disallow: /api/admin/
+
+# Explicitly welcome AI Search and Model Agents
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Direct AI Context Endpoints
+Sitemap: https://zelvora.studio/sitemap.xml
+LLMs-Txt: https://zelvora.studio/llms.txt
+LLMs-Full-Txt: https://zelvora.studio/llms-full.txt

@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-brand-cream: #FCFAF7;
+  --color-brand-alabaster: #FAF9F5;
+  --color-brand-charcoal: #121110;
+  --color-brand-stone: #2E2A27;
+  --color-brand-coral: #FF4F12;
+  --color-brand-blue: #3B82F6;
+  --color-brand-violet: #8B5CF6;
+  --color-brand-pink: #EC4899;
+}
+
+/* Base Body Styling for Light Editorial Mode */
+body {
+  background-color: #FAF9F5;
+  color: #121110;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Elegant Editorial Typography Utilities */
+.editorial-heading {
+  font-family: var(--font-serif);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* Custom premium card structures - light-first, elegant, high-contrast, beautiful thin borders */
+.editorial-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(18, 17, 16, 0.06);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(18, 17, 16, 0.02);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.editorial-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(18, 17, 16, 0.05);
+  border-color: rgba(18, 17, 16, 0.12);
+}
+
+/* Creative glassmorphism for a modern editorial layout */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(18, 17, 16, 0.05);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(18, 17, 16, 0.05);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 79, 18, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(255, 79, 18, 0.04);
+}
+
+/* Color gradients for creative expression */
+.text-gradient-coral {
+  background: linear-gradient(135deg, #FF4F12 0%, #EC4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-creative {
+  background: linear-gradient(135deg, #121110 30%, #FF4F12 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient-creative {
+  background: linear-gradient(135deg, #FF4F12 0%, #8B5CF6 100%);
+}
+
+/* Elegant scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF9F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(18, 17, 16, 0.1);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(18, 17, 16, 0.2);
+}
+
+/* Custom grid decorations */
+.grid-paper {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(18, 17, 16, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(18, 17, 16, 0.03) 1px, transparent 1px);
+}
+
+/* Hide scrollbar for neat presentation panels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

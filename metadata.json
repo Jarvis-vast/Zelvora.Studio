@@ -1,0 +1,6 @@
+{
+  "name": "Zelvora.AI",
+  "description": "Outsourced content and visibility team powered by elite design, intelligent strategy, and consistent execution for busy business owners.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

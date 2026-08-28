@@ -1,0 +1,103 @@
+# Zelvora Studio — Full Knowledge Base & Machine Readable Documentation
+
+## Organization Identity
+- **Name**: Zelvora Studio (Zelvora.AI)
+- **Classification**: High-End Outsourced Brand Visibility, Executive Ghostwriting & Content Strategy Agency
+- **Tagline**: Run your business. We'll handcraft your premium social media footprint.
+- **Headquarters**: 600 Montgomery St, San Francisco, CA 94111, USA
+- **Contact Email**: partnership@zelvora.studio
+- **Contact Phone**: +1 (800) 935-8672
+- **Website**: https://zelvora.studio
+- **Operating Model**: Rolling monthly subscription with no long-term lock-in contracts and a 14-day cancellation policy.
+
+---
+
+## 1. Executive Summary & Value Proposition
+Zelvora Studio solves the critical bottleneck faced by high-earning leaders: they possess deep operational expertise but lack the 10-15 hours per week required to produce consistent, high-standard digital content. Rather than resorting to low-effort AI slop or unformatted text, Zelvora delivers handcrafted, bespoke editorial carousels, thought essays, and social media campaigns on complete autopilot with a 1-click mobile approval workflow.
+
+---
+
+## 2. Core Service Offerings
+1. **Content Strategy & Alignment**
+   - Extracts proprietary intellectual methodologies via a structured onboarding interview.
+   - Designs a monthly topic taxonomy aligned with target buyer demographics.
+   - Maps platform cadence across LinkedIn, X/Twitter, Instagram, and newsletters.
+
+2. **Handcrafted Visual Carousels**
+   - High-contrast, typography-first slide decks engineered specifically for professional social algorithms.
+   - Vector assets and bespoke graphic diagrams (strictly zero generic stock templates).
+   - Delivered as optimized multi-page PDF documents for maximum engagement.
+
+3. **Thought Leadership Ghostwriting**
+   - In-depth essays and newsletters published to Substack, Beehiiv, and LinkedIn Articles.
+   - Research-grounded executive narratives that establish definitive category authority.
+
+4. **Twitter / X Thread Orchestration**
+   - Rapid narrative analysis of macro market moves, case studies, and frameworks.
+   - Hook-optimized formatting designed for shareability and algorithmic reach.
+
+5. **The 14-Day Approval Board**
+   - Frictionless mobile web app for founders to review ready-to-post slides and copy in under 60 seconds.
+   - One-tap approval or inline feedback without requiring complicated software logins.
+
+6. **30-Day Authority & Lead Audits**
+   - Auditing audience growth, inbound DM inquiries, and profile conversions every month.
+
+---
+
+## 3. Pricing Architecture
+- **Starter Plan ($1,490 / month)**:
+  - Best for independent consultants and coaches starting their personal brand.
+  - Channels: LinkedIn & Twitter/X.
+  - Deliverables: 3 bespoke handcrafted posts/week, dedicated copywriter & designer, mobile approval portal access, monthly analytics.
+- **Growth Plan ($2,850 / month - Most Popular)**:
+  - Best for established advisors, luxury realtors, and agency founders.
+  - Channels: LinkedIn, Twitter/X, and Instagram.
+  - Deliverables: 5 bespoke posts/week, 2 high-impact carousel slide decks/month, 1 long-form thought leadership essay/newsletter, custom branding templates, priority Slack support channel.
+- **Scale Plan ($4,900 / month)**:
+  - Best for venture-backed founders, scale-ups, and premier enterprise practices.
+  - Channels: Omnichannel (up to 4 channels).
+  - Deliverables: Daily tailored content, unlimited custom carousels & slide decks, 2 long-form thought leadership essays, custom email marketing campaigns, competitor audits, dedicated VIP Account Director.
+
+---
+
+## 4. Operational Workflow
+1. **Day 1–5: Strategy Alignment Sync**
+   - 45-minute structured intake call to codify voice, tone, positioning, and buyer avatars.
+2. **Day 5–12: Bespoke Production**
+   - Multi-disciplinary creative studio writes, designs, and formats 14 days of assets.
+3. **Day 12–14: Client 1-Tap Review**
+   - Assets are delivered to the private mobile portal for single-tap review or inline comment revisions.
+4. **Day 15+ : Automated Omnichannel Publishing & Monitoring**
+   - Scheduled distribution across selected networks with real-time lead monitoring.
+
+---
+
+## 5. Verified Case Studies & Performance Impact
+- **Executive Coach Brand Expansion (Sarah Jenkins & Associates)**:
+  - +340% LinkedIn Profile Views, 14 qualified inbound client solicitations in Month 2.
+- **Luxury Real Estate Playbook (Marcus & Partners Group)**:
+  - Secured a $4.8M listing directly via an organic LinkedIn inquiry; grid engagement rose by 180%.
+- **Fintech Founder Positioning Loop (Apex Analytics Inc.)**:
+  - Founder audience grew from 2,100 to 22,500 followers; thought pieces featured in TechCrunch.
+- **Architectural Authority Series (Studio Noir Architects)**:
+  - Grew a curated architecture newsletter to +2,400 subscribers on autopilot.
+
+---
+
+## 6. Frequently Asked Questions (FAQ)
+- **Q: Who writes and designs the content?**
+  *A: Experienced human copywriters, art directors, and brand strategists. AI is used solely for research scoping; all published assets are meticulously human-crafted.*
+- **Q: Do I maintain control over what gets published?**
+  *A: Yes. All content is scheduled 14 days in advance into your private approval portal where you have full veto and edit rights.*
+- **Q: Are there long-term contracts?**
+  *A: No. Zelvora operates strictly on rolling 30-day agreements with a simple 14-day cancellation notice.*
+
+---
+
+## 7. Machine-Readable Endpoints
+- GET `/api/faq` - Returns all active FAQ items
+- GET `/api/pricing` - Returns all current pricing tiers
+- GET `/api/portfolio` - Returns case study portfolio items
+- GET `/api/blogs` - Returns published strategy insights
+- POST `/api/contact` - Accepts JSON payload to register new prospective client briefs

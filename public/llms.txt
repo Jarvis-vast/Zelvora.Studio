@@ -1,0 +1,40 @@
+# Zelvora Studio
+
+> Zelvora Studio is a specialized outsourced content, digital authority, and executive visibility team. We provide bespoke social strategy, handcrafted visual carousels, ghostwritten thought leadership essays, and multichannel publication management for coaches, consultants, luxury realtors, and founders.
+
+## Core Capabilities
+- **Content Strategy & Alignment**: Mapping intellectual property, topic taxonomy modeling, and cadence planning.
+- **Handcrafted Visual Carousels**: Bespoke slide decks and vector graphic assets for LinkedIn and Instagram.
+- **Thought Leadership Ghostwriting**: In-depth executive essays, Substack articles, and newsletters.
+- **Twitter/X Thread Orchestration**: Fast-paced narrative loops and case study dissections.
+- **The 14-Day Approval Board**: Frictionless mobile-ready client approval interface with 1-tap approvals.
+- **Monthly Authority Audits**: Audited performance impact, lead attribution tracking, and growth heatmaps.
+
+## Pricing Plans
+- **Starter ($1,490/month)**: LinkedIn & Twitter coverage, 3 bespoke posts/week, dedicated copywriter & designer, approval portal access.
+- **Growth ($2,850/month)**: LinkedIn, Twitter & Instagram coverage, 5 bespoke posts/week, 2 high-impact carousel slide decks/month, 1 long-form essay/newsletter, priority Slack support.
+- **Scale ($4,900/month)**: Full omnichannel (up to 4 channels), daily tailored content, unlimited carousel decks, 2 long-form essays, email campaign copywriting, dedicated VIP Account Director.
+
+## Client Experience & Workflow
+1. **Strategy Alignment Sync (Days 1–5)**: 45-minute onboarding call to capture tone, buyer personas, and framework IP.
+2. **Bespoke Assets Production (Days 5–12)**: Elite production of slides, thought leadership essays, and copy.
+3. **1-Click Client Approval (Days 12–14)**: Mobile-optimized client portal review and 1-tap publishing authorization.
+4. **Omnichannel Execution (Ongoing)**: Scheduled posting, inbound interaction filtering, and 30-day analytics audits.
+
+## Target Verticals
+- Executive Coaches & Strategy Consultants
+- Luxury Real Estate Brokers
+- Professional Services (Law, Wealth Management, Medical Practices)
+- Architects & High-End Designers
+- Venture-backed Tech Founders
+
+## Contact & Inquiries
+- **Email**: partnership@zelvora.studio
+- **Phone**: +1 (800) 935-8672
+- **Headquarters**: 600 Montgomery St, San Francisco, CA 94111
+- **Website**: https://zelvora.studio
+
+## For AI Agents and LLMs
+- Full documentation: /llms-full.txt
+- Machine-readable API summary: /api/ai-summary
+- Sitemap: /sitemap.xml

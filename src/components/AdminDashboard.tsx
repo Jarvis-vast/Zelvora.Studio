@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Users, HelpCircle, Briefcase, FileText, Sliders, Settings, Search, Filter,
   Plus, Trash2, Edit, Save, CheckCircle, AlertCircle, RefreshCw, Download, LogOut,
-  SlidersHorizontal, Check, Shield, MessageSquare, Tag, Layout, Database
+  SlidersHorizontal, Check, Shield, MessageSquare, Tag, Layout, Database, Mail
 } from "lucide-react";
 import { Lead, FAQ, PortfolioItem, Blog, PricingPlan, WebsiteSettings } from "../types";
 
@@ -1033,6 +1033,19 @@ export default function AdminDashboard({ token, onLogout }: AdminDashboardProps)
                       </div>
                       <span className="px-2 py-0.5 rounded font-mono text-[9px] font-bold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
                         ACTIVE DRIZZLE POOL
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between py-2 px-4 rounded-lg bg-white/5 border border-white/5">
+                      <div className="flex items-center gap-3">
+                        <Mail size={14} className="text-orange-400" />
+                        <div>
+                          <span className="block text-xs text-white font-medium">Supabase Edge Function (Resend Email)</span>
+                          <span className="block text-[10px] text-gray-500 font-mono">Endpoint: /functions/v1/resend-email (Auto Lead Acknowledgements)</span>
+                        </div>
+                      </div>
+                      <span className="px-2 py-0.5 rounded font-mono text-[9px] font-bold bg-orange-500/10 border border-orange-500/20 text-orange-400">
+                        ACTIVE EDGE FUNCTION
                       </span>
                     </div>
 

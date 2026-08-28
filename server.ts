@@ -13,17 +13,50 @@ const PORT = 3000;
 
 app.use(express.json());
 
+// Helper for URL sanitization
+function sanitizeSupabaseUrl(candidate?: string | null): string {
+  const fallback = "https://jtcrrnngbgrmqczerfve.supabase.co";
+  if (!candidate || typeof candidate !== "string") return fallback;
+  const trimmed = candidate.trim().replace(/^["']|["']$/g, "");
+  if (!trimmed || trimmed === "undefined" || trimmed === "null" || trimmed === "MY_APP_URL") return fallback;
+  try {
+    const formatted = trimmed.startsWith("http://") || trimmed.startsWith("https://") ? trimmed : `https://${trimmed}`;
+    const parsed = new URL(formatted);
+    if (parsed.protocol === "http:" || parsed.protocol === "https:") {
+      return parsed.origin;
+    }
+  } catch (_) {
+    // fallback
+  }
+  return fallback;
+}
+
+function sanitizeSupabaseKey(candidate?: string | null): string {
+  const fallback = "sb_publishable_tL4BeZffytf20JOYhC6SGA_n06AB01-";
+  if (!candidate || typeof candidate !== "string") return fallback;
+  const trimmed = candidate.trim().replace(/^["']|["']$/g, "");
+  if (!trimmed || trimmed === "undefined" || trimmed === "null") return fallback;
+  return trimmed;
+}
+
 // Supabase Cloud Client Initialization
-const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || "https://jtcrrnngbgrmqczerfve.supabase.co";
-const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "sb_publishable_tL4BeZffytf20JOYhC6SGA_n06AB01-";
+const SUPABASE_URL = sanitizeSupabaseUrl(process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL);
+const SUPABASE_KEY = sanitizeSupabaseKey(
+  process.env.SUPABASE_SECRET_KEY ||
+  process.env.SUPABASE_PUBLISHABLE_KEY ||
+  process.env.SUPABASE_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+);
 
 let supabaseClient: any = null;
 try {
   if (SUPABASE_URL && SUPABASE_KEY) {
-    supabaseClient = createSupabaseClient(SUPABASE_URL, SUPABASE_KEY);
+    supabaseClient = createSupabaseClient(SUPABASE_URL, SUPABASE_KEY, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
   }
 } catch (err) {
-  console.warn("Supabase initialization deferred:", err);
+  // Silent fallback to local storage
 }
 
 // Path to JSON Database
@@ -587,6 +620,54 @@ app.post("/api/contact", async (req, res) => {
       }
     }
 
+    // SUPABASE EDGE FUNCTION EMAIL (RESEND)
+    const edgeFunctionEmailUrl =
+      process.env.SUPABASE_EDGE_FUNCTION_RESEND_URL ||
+      "https://jtcrrnngbgrmqczerfve.supabase.co/functions/v1/resend-email";
+    
+    let emailSent = false;
+    try {
+      const emailPayload = {
+        from: "Zelvora Studio <partnership@zelvora.studio>",
+        to: [email],
+        subject: "We received your brand visibility brief — Zelvora Studio",
+        html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #111; line-height: 1.6;">
+            <div style="border-bottom: 2px solid #ea580c; padding-bottom: 12px; margin-bottom: 20px;">
+              <h2 style="margin: 0; color: #111; font-size: 20px; letter-spacing: -0.5px;">Zelvora Studio</h2>
+              <p style="margin: 4px 0 0 0; font-size: 12px; color: #666; font-family: monospace;">EXECUTIVE VISIBILITY & CONTENT STRATEGY</p>
+            </div>
+            <p>Dear ${name},</p>
+            <p>Thank you for submitting your brand visibility brief for <strong>${business}</strong>. Our creative directors and editorial strategists are reviewing your target vertical (${industry || "General Executive"}).</p>
+            <div style="background-color: #f9f9f9; border: 1px solid #eaeaea; border-radius: 8px; padding: 16px; margin: 20px 0;">
+              <h3 style="margin-top: 0; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: #555;">Submission Overview</h3>
+              <ul style="margin: 0; padding-left: 20px; font-size: 13px; color: #333;">
+                <li><strong>Client:</strong> ${name} (${email})</li>
+                <li><strong>Business / Brand:</strong> ${business}</li>
+                <li><strong>Budget Tier:</strong> ${budget || "Custom Growth"}</li>
+                <li><strong>Preferred Contact:</strong> ${newLead.contactMethod}</li>
+              </ul>
+            </div>
+            <p>Our team will reach out within 24 hours to coordinate your 45-minute Strategy Alignment Sync.</p>
+            <p style="margin-top: 30px; font-size: 12px; color: #888;">Zelvora Studio &bull; 600 Montgomery St, San Francisco, CA 94111 &bull; partnership@zelvora.studio</p>
+          </div>
+        `
+      };
+
+      const emailRes = await fetch(edgeFunctionEmailUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${SUPABASE_KEY}`,
+          "apikey": SUPABASE_KEY
+        },
+        body: JSON.stringify(emailPayload)
+      });
+      emailSent = emailRes.ok;
+    } catch (emailErr) {
+      console.warn("Supabase Resend Edge Function notification note:", emailErr);
+    }
+
     res.json({
       success: true,
       lead: newLead,
@@ -595,11 +676,54 @@ app.post("/api/contact", async (req, res) => {
         slackReal: !!slackUrl,
         googleSheets: sheetsSuccess || !!sheetsUrl,
         sheetsReal: !!sheetsUrl,
-        supabase: supabaseSuccess || !!supabaseClient
+        supabase: supabaseSuccess || !!supabaseClient,
+        emailNotification: emailSent
       }
     });
   } catch (error: any) {
     res.status(500).json({ error: error.message || "Failed to submit lead" });
+  }
+});
+
+// DISPATCH EMAIL VIA SUPABASE RESEND EDGE FUNCTION
+app.post("/api/email/send", async (req, res) => {
+  try {
+    const { to, subject, html, from } = req.body;
+    if (!to || !subject || !html) {
+      return res.status(400).json({ error: "Missing required fields: 'to', 'subject', 'html'" });
+    }
+
+    const edgeFunctionEmailUrl =
+      process.env.SUPABASE_EDGE_FUNCTION_RESEND_URL ||
+      "https://jtcrrnngbgrmqczerfve.supabase.co/functions/v1/resend-email";
+
+    const response = await fetch(edgeFunctionEmailUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${SUPABASE_KEY}`,
+        "apikey": SUPABASE_KEY
+      },
+      body: JSON.stringify({
+        from: from || "Zelvora Studio <partnership@zelvora.studio>",
+        to,
+        subject,
+        html
+      })
+    });
+
+    const data = await response.json().catch(() => null);
+    if (!response.ok) {
+      return res.status(response.status).json({
+        success: false,
+        error: data?.error || `Edge Function returned HTTP ${response.status}`,
+        details: data
+      });
+    }
+
+    res.json({ success: true, data });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message || "Failed to trigger Edge Function" });
   }
 });
 

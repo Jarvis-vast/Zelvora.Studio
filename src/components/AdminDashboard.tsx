@@ -1027,12 +1027,12 @@ export default function AdminDashboard({ token, onLogout }: AdminDashboardProps)
                       <div className="flex items-center gap-3">
                         <Database size={14} className="text-emerald-400" />
                         <div>
-                          <span className="block text-xs text-white font-medium">Supabase Cloud Database</span>
-                          <span className="block text-[10px] text-gray-500 font-mono">Syncs incoming leads to jtcrrnngbgrmqczerfve.supabase.co</span>
+                          <span className="block text-xs text-white font-medium">Supabase Cloud Database & Drizzle ORM</span>
+                          <span className="block text-[10px] text-gray-500 font-mono">Connected to PostgreSQL via db.jtcrrnngbgrmqczerfve.supabase.co:5432</span>
                         </div>
                       </div>
                       <span className="px-2 py-0.5 rounded font-mono text-[9px] font-bold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-                        ACTIVE BRIDGED
+                        ACTIVE DRIZZLE POOL
                       </span>
                     </div>
 

@@ -1130,4 +1130,13 @@ async function startServer() {
   });
 }
 
-startServer();
+// On standalone Node, start server; on Vercel Serverless, initialize DB and export app
+if (process.env.VERCEL !== "1") {
+  startServer();
+} else {
+  initDatabase().catch(console.error);
+}
+
+export { app };
+export default app;
+

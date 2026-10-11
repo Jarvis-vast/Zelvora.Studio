@@ -2,9 +2,11 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import * as schema from "./schema";
 
+const rawConnectionString = process.env.DATABASE_URL;
 const connectionString =
-  process.env.DATABASE_URL ||
-  "postgresql://postgres:ib7UOPuDWeNSeig3@db.jtcrrnngbgrmqczerfve.supabase.co:5432/postgres";
+  rawConnectionString && !rawConnectionString.includes("jtcrrnngbgrmqczerfve")
+    ? rawConnectionString
+    : null;
 
 let dbInstance: ReturnType<typeof drizzle> | null = null;
 let sqlClient: postgres.Sql | null = null;

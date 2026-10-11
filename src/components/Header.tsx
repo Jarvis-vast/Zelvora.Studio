@@ -14,24 +14,22 @@ export default function Header({ activePage, setActivePage, isAdminLoggedIn, onL
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
-    { id: "home", label: "Home" },
-    { id: "services", label: "Services" },
-    { id: "industries", label: "Industries" },
-    { id: "process", label: "Process" },
-    { id: "portfolio", label: "Portfolio" },
-    { id: "pricing", label: "Pricing" },
-    { id: "about", label: "About" },
-    { id: "contact", label: "Contact" }
+    { id: "home", label: "Overview" },
+    { id: "services", label: "Capabilities" },
+    { id: "industries", label: "Practice Areas" },
+    { id: "process", label: "Workflow" },
+    { id: "portfolio", label: "Work Samples" },
+    { id: "pricing", label: "Investment" },
+    { id: "about", label: "About" }
   ];
 
   const handleNav = (pageId: string) => {
     setActivePage(pageId);
     setIsOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 border-b border-brand-charcoal/5 bg-brand-cream/90 backdrop-blur-md shadow-xs">
+    <header className="fixed top-0 left-0 w-full z-50 border-b border-brand-charcoal/8 bg-brand-cream/95 backdrop-blur-md shadow-xs">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <div className="cursor-pointer" onClick={() => handleNav("home")}>
           <Logo />
@@ -45,15 +43,15 @@ export default function Header({ activePage, setActivePage, isAdminLoggedIn, onL
               <button
                 key={item.id}
                 onClick={() => handleNav(item.id)}
-                className={`relative px-4 py-2 text-sm font-semibold transition-colors hover:text-brand-charcoal rounded-md ${
-                  isActive ? "text-brand-charcoal bg-brand-charcoal/5" : "text-brand-charcoal/60"
+                className={`relative px-3.5 py-2 text-xs uppercase tracking-wider font-semibold transition-colors hover:text-brand-charcoal rounded-md cursor-pointer ${
+                  isActive ? "text-brand-charcoal bg-brand-charcoal/5 font-bold" : "text-brand-charcoal/65 font-medium"
                 }`}
               >
                 {item.label}
                 {isActive && (
                   <motion.div
                     layoutId="activeIndicator"
-                    className="absolute bottom-1 left-4 right-4 h-[2px] bg-brand-coral rounded-full"
+                    className="absolute bottom-1 left-3.5 right-3.5 h-[2px] bg-brand-coral rounded-full"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -63,39 +61,32 @@ export default function Header({ activePage, setActivePage, isAdminLoggedIn, onL
         </nav>
 
         {/* Action Buttons */}
-        <div className="hidden md:flex items-center gap-4">
-          {isAdminLoggedIn ? (
-            <div className="flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-3">
+          {isAdminLoggedIn && (
+            <div className="flex items-center gap-2 mr-2">
               <button
                 onClick={() => handleNav("admin")}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-brand-coral/20 bg-brand-coral/5 text-brand-coral hover:bg-brand-coral/10 transition-all"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-brand-coral/20 bg-brand-coral/5 text-brand-coral hover:bg-brand-coral/10 transition-all cursor-pointer"
               >
                 <Shield size={12} />
                 Dashboard
               </button>
               <button
                 onClick={onLogout}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-brand-charcoal/60 hover:text-brand-coral hover:bg-brand-charcoal/5 transition-all"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-semibold text-brand-charcoal/60 hover:text-brand-coral hover:bg-brand-charcoal/5 transition-all cursor-pointer"
                 title="Log Out Administrator"
               >
                 <LogOut size={12} />
               </button>
             </div>
-          ) : (
-            <button
-              onClick={() => handleNav("admin-login")}
-              className="text-xs font-mono text-brand-stone/50 hover:text-brand-coral transition-colors px-2 py-1"
-            >
-              [Admin Login]
-            </button>
           )}
 
           <button
             onClick={() => handleNav("contact")}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold bg-brand-coral text-white hover:bg-brand-coral/90 shadow-md shadow-brand-coral/10 hover:shadow-brand-coral/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-wide uppercase bg-brand-coral text-white hover:bg-brand-coral/90 shadow-sm shadow-brand-coral/15 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
           >
-            Get Content Plan
-            <ArrowRight size={14} />
+            Request Private Audit
+            <ArrowRight size={13} />
           </button>
         </div>
 
@@ -157,21 +148,14 @@ export default function Header({ activePage, setActivePage, isAdminLoggedIn, onL
                     Sign Out
                   </button>
                 </div>
-              ) : (
-                <button
-                  onClick={() => handleNav("admin-login")}
-                  className="text-left text-xs font-mono text-brand-stone/50 hover:text-brand-coral px-4 py-2"
-                >
-                  [Admin Console Login]
-                </button>
-              )}
+              ) : null}
 
               <button
                 onClick={() => handleNav("contact")}
-                className="w-full py-3 rounded-lg bg-brand-coral text-white font-semibold text-center flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-full bg-brand-coral text-white font-bold text-xs uppercase tracking-wide text-center flex items-center justify-center gap-2 shadow-md shadow-brand-coral/15"
               >
-                Get Content Plan
-                <ArrowRight size={16} />
+                Request Private Audit
+                <ArrowRight size={14} />
               </button>
             </div>
           </motion.div>

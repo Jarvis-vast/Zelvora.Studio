@@ -9,16 +9,15 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
 app.use(express.json());
 
 // Helper for URL sanitization
-function sanitizeSupabaseUrl(candidate?: string | null): string {
-  const fallback = "https://jtcrrnngbgrmqczerfve.supabase.co";
-  if (!candidate || typeof candidate !== "string") return fallback;
+function sanitizeSupabaseUrl(candidate?: string | null): string | null {
+  if (!candidate || typeof candidate !== "string") return null;
   const trimmed = candidate.trim().replace(/^["']|["']$/g, "");
-  if (!trimmed || trimmed === "undefined" || trimmed === "null" || trimmed === "MY_APP_URL") return fallback;
+  if (!trimmed || trimmed === "undefined" || trimmed === "null" || trimmed === "MY_APP_URL" || trimmed.includes("jtcrrnngbgrmqczerfve")) return null;
   try {
     const formatted = trimmed.startsWith("http://") || trimmed.startsWith("https://") ? trimmed : `https://${trimmed}`;
     const parsed = new URL(formatted);
@@ -26,16 +25,15 @@ function sanitizeSupabaseUrl(candidate?: string | null): string {
       return parsed.origin;
     }
   } catch (_) {
-    // fallback
+    return null;
   }
-  return fallback;
+  return null;
 }
 
-function sanitizeSupabaseKey(candidate?: string | null): string {
-  const fallback = "sb_publishable_tL4BeZffytf20JOYhC6SGA_n06AB01-";
-  if (!candidate || typeof candidate !== "string") return fallback;
+function sanitizeSupabaseKey(candidate?: string | null): string | null {
+  if (!candidate || typeof candidate !== "string") return null;
   const trimmed = candidate.trim().replace(/^["']|["']$/g, "");
-  if (!trimmed || trimmed === "undefined" || trimmed === "null") return fallback;
+  if (!trimmed || trimmed === "undefined" || trimmed === "null" || trimmed.includes("sb_publishable_tL4BeZffytf20JOYhC6SGA_n06AB01-")) return null;
   return trimmed;
 }
 
@@ -49,18 +47,27 @@ const SUPABASE_KEY = sanitizeSupabaseKey(
 );
 
 let supabaseClient: any = null;
-try {
-  if (SUPABASE_URL && SUPABASE_KEY) {
+if (SUPABASE_URL && SUPABASE_KEY) {
+  try {
     supabaseClient = createSupabaseClient(SUPABASE_URL, SUPABASE_KEY, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
+  } catch (err) {
+    console.warn("Supabase initialization exception:", err);
   }
-} catch (err) {
-  // Silent fallback to local storage
 }
 
-// Path to JSON Database
+// Path to JSON Database and Durable Backup Log
 const DB_PATH = path.join(process.cwd(), "database.json");
+const DB_BACKUP_PATH = path.join(process.cwd(), "leads_backup.jsonl");
+
+async function appendLeadBackup(lead: Lead) {
+  try {
+    await fs.appendFile(DB_BACKUP_PATH, JSON.stringify(lead) + "\n", "utf8");
+  } catch (err) {
+    console.error("Warning: Failed to append lead to backup log:", err);
+  }
+}
 
 // Types for DB structure
 interface Lead {
@@ -168,113 +175,125 @@ const INITIAL_DB: Database = {
   faqs: [
     {
       id: "faq-1",
-      question: "How does Zelvora work?",
-      answer: "We act as your completely outsourced content and brand presence team. Each month, we define your high-level strategy, produce bespoke, premium social posts and thought leadership content, coordinate publishing schedules, and provide detailed reporting on your growth. You spend 0 minutes on creation, allowing you to run your business while we build your authority.",
-      category: "Process"
+      question: "How does Zelvora Studio work?",
+      answer: "We act as your dedicated executive content and brand-visibility team. Each month, we conduct a 45-minute structured strategy extraction with the founder or managing partner. From that single conversation, our senior editorial desk drafts, designs, and batches 14 to 20 bespoke executive posts, carousel slide decks, and thought-leadership essays. You review and approve everything in minutes via your private mobile preview link or dedicated WhatsApp/Slack channel.",
+      category: "Workflow"
     },
     {
       id: "faq-2",
-      question: "Who writes and designs the content?",
-      answer: "Every piece of content is handcrafted by our elite team of professional designers, copywriters, and business strategists. We never use cheap templates or automated 'AI-slop'. We capture your unique tone of voice, ensure top-tier visual aesthetics, and produce material that instantly communicates authority to premium clients.",
-      category: "Quality"
+      question: "How do you handle AI vs. human editorial work?",
+      answer: "Zelvora is our parent AI technology firm, but Zelvora Studio is an editorial-first operation. Behind the scenes, we use intelligent research and semantic clustering to rapidly analyze market trends and competitor gaps. However, 100% of the strategic narrative, executive ghostwriting, tone calibration, and visual design is led, written, and refined by experienced human editors. We never publish raw, unvetted AI text or generic templates.",
+      category: "Editorial Standards"
     },
     {
       id: "faq-3",
-      question: "Will I need to review and approve posts?",
-      answer: "Yes, you maintain full control. We design and schedule all content 14 days in advance. You get access to a private, beautifully styled client approval portal where you can review layouts, request revisions, or approve posts in a single click from your phone or desktop. No complex software logins needed.",
-      category: "Process"
+      question: "How much time is required from me each month?",
+      answer: "Under 60 minutes per month total. You invest 45 minutes in our monthly voice and strategy extraction call. Once we produce your bi-weekly content batch, reviewing and approving it takes under 10 minutes a week via your private mobile preview link or direct message. We handle the entire operational burden.",
+      category: "Commitment"
     },
     {
       id: "faq-4",
-      question: "What platforms do you support?",
-      answer: "We focus on the channels where busy professionals build absolute authority: LinkedIn (executive branding & newsletters), Twitter/X (thought leadership loops), Instagram (highly polished aesthetic grids/carousels), and premium email newsletters (Substack, Beehiiv).",
+      question: "What channels do you manage?",
+      answer: "We focus on high-leverage channels where boutique consulting and advisory founders win client trust: LinkedIn (executive personal profiles and firm pages), Twitter/X (industry discourse and framework threads), and executive email newsletters (Substack, Beehiiv, or LinkedIn Newsletters). Visual syndication to Instagram is available on Growth and Scale tiers.",
       category: "Channels"
     },
     {
       id: "faq-5",
-      question: "Can I cancel or modify my subscription?",
-      answer: "Yes. Zelvora operates on rolling monthly commitments with no lock-in contracts. You can scale your visibility plan up, down, or cancel at any time with a simple 14-day notice prior to your next billing cycle.",
-      category: "Billing"
+      question: "What are your contract terms and cancellation policy?",
+      answer: "Zelvora Studio operates on transparent, rolling monthly engagements with no lock-in contracts. You can scale your tier up, down, or pause with a simple 14-day written notice before your next renewal. You own 100% of all intellectual property, copy, and visual assets created.",
+      category: "Terms"
     }
   ],
   portfolio: [
     {
       id: "port-1",
-      title: "Executive Coach Brand Expansion",
-      client: "Sarah Jenkins & Associates",
-      category: "Consulting / Coaching",
-      description: "Transformed an inactive executive profile into a dynamic industry-leader beacon on LinkedIn. We deployed high-end carousels and ghostwrote long-form thought-leadership content highlighting complex framework methodologies.",
-      metrics: "+340% LinkedIn Profile Views • 14 Inbound Client Solicitations in Month 2",
-      imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800"
+      title: "Executive Carousel: The Silent Advisory Trap",
+      client: "Illustrative Concept • Founder-Led Management Advisory",
+      category: "Boutique Consulting / Advisory",
+      description: "Sample multi-slide executive LinkedIn carousel illustrating how high-billing consultancies lose enterprise market share when their digital footprint is silent. Features crisp typography and framework-driven pacing.",
+      metrics: "Illustrative Deliverable • High Save & Repost Benchmark",
+      imageUrl: "/zelvora_post.png"
     },
     {
       id: "port-2",
-      title: "Luxury Real Estate Visibility Playbook",
-      client: "Marcus & Partners Group",
-      category: "Real Estate",
-      description: "Created an immersive, narrative-driven Instagram grid showcasing high-end architecture alongside macro-economic local market insights. Replaced standard home pictures with professional visual cards.",
-      metrics: "Secured a $4.8M Listing directly from organic LinkedIn DM • Grid engagement up 180%",
-      imageUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"
+      title: "Contrarian Editorial: When Referrals Stop Scaling",
+      client: "Illustrative Concept • Boutique Strategy Consultancy",
+      category: "Executive Ghostwriting",
+      description: "Ghostwritten long-form executive post unpacking the hidden revenue volatility of relying purely on historical referral networks, framing the firm's proprietary methodology as the strategic answer.",
+      metrics: "Illustrative Deliverable • Partner Inquiry Anchor",
+      imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800"
     },
     {
       id: "port-3",
-      title: "Fintech Founder Positioning Loop",
-      client: "Apex Analytics Inc.",
-      category: "Technology",
-      description: "Structured and published weekly detailed threads exploring the future of global SaaS infrastructure, capturing attention from venture capital firms and major enterprise buyers.",
-      metrics: "Scaled Founder Audience from 2,100 to 22,500 • Content referenced in TechCrunch",
-      imageUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800"
+      title: "Executive Dispatch: Mid-Market Transformation Insights",
+      client: "Illustrative Concept • Corporate Advisory & Transformation Practice",
+      category: "Executive Newsletter",
+      description: "A bi-weekly executive brief ghostwritten for a managing partner, dissecting mid-market M&A restructuring lessons and establishing category authority among board members and corporate buyers.",
+      metrics: "Illustrative Deliverable • 45%+ Executive Open Benchmark",
+      imageUrl: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800"
     },
     {
       id: "port-4",
-      title: "Architectural Authority Series",
-      client: "Studio Noir Architects",
-      category: "Design / Architecture",
-      description: "Ghostwrote a weekly email newsletter dissecting minimalist construction trends, complemented by bespoke editorial carousel graphics across Instagram and LinkedIn.",
-      metrics: "+2,400 Premium Newsletter Subscribers • Handled 100% on Autopilot",
-      imageUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=800"
+      title: "Visual Framework Breakdown: The Diagnostic Matrix",
+      client: "Illustrative Concept • Specialized Advisory Practice",
+      category: "Visual Framework Design",
+      description: "Converting proprietary consulting frameworks and whiteboard models into high-contrast, polished graphic assets formatted for executive distribution on LinkedIn.",
+      metrics: "Illustrative Deliverable • Premium Editorial Standard",
+      imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800"
     }
   ],
   blogs: [
     {
       id: "blog-1",
-      title: "The Invisible Founder: Why Silent Leaders Lose Market Share in 2026",
-      excerpt: "In an era of relentless noise, remaining invisible is the fastest way to lose market authority. Discover why busy business owners must secure consistent digital visibility.",
-      content: `In 2026, the traditional referral model is no longer enough to sustain premium business growth. When prospective clients hear your name, their very first instinct is to look you up on LinkedIn, Google, or Instagram. If what they find is an outdated post from three years ago or a completely blank profile, their trust immediately evaporates.
+      title: "The Invisible Partner: Why Elite Boutique Consultancies Lose Deals to Louder Competitors",
+      excerpt: "Your advisory work is world-class, but prospective clients validate credentials online before calling you back. Here is how silent firms lose the narrative.",
+      content: `In high-value consulting and advisory engagements ($25,000 to $250,000+), referral recommendations remain powerful. But the referral journey has fundamentally evolved.
+      
+When an enterprise CEO, private equity operating partner, or corporate board member hears your name recommended at dinner, their very first action is to look up your personal profile on LinkedIn or Google.
 
-They don't assume you're too busy running your business; they assume you've fallen behind.
+If they encounter an inactive profile, sporadic generic reposts, or silence, doubt creeps in. They do not assume you are too busy doing brilliant client work; they subconsciously assume your practice has stalled.
 
-### The True Cost of Invisibility
-Every day you remain silent online, your competitors are actively publishing thought leadership, insights, and elegant visual presentations. They are building trust at scale. When the time comes for a buyer to make a decision, they will choose the visible authority — even if your services are far superior.
+### The Modern Validation Layer
+Executive content is not about chasing superficial virality or dancing for social algorithms. For boutique advisory leaders, executive visibility functions as an always-on credibility validator:
+1. **Validating Real Depth:** Demonstrating that your proprietary frameworks address the exact board-level pain points your prospects face.
+2. **Shortening the Sales Cycle:** Prospects who read your thoughtful commentary arrive at introductory discovery calls already educated on your point of view and pre-sold on your approach.
+3. **Protecting Enterprise Pricing:** When your public authority matches your advisory fees, price resistance disappears.
 
-### Outsource the Burden, Hold the Authority
-The biggest bottleneck for founders isn't a lack of knowledge; it's a lack of time. Writing essays, compiling research, designing carousels, and coordinating publishing calendars is a full-time job. 
+### Outsource the Heavy Lifting, Protect Your Voice
+The obstacle for boutique founders has never been a lack of insight—it is operational time. Developing narratives, designing visual carousels, and managing publishing cadences takes 12 to 15 hours each week.
 
-By partnerering with an outsourced visibility team like Zelvora.AI, you keep 100% of your authority while delegating 100% of the operational burden. You run your business. We'll make sure the internet remembers you.`,
-      author: "Julien Mercer, Principal Strategist",
-      date: "2026-06-28",
+Zelvora Studio extracts your genuine partner expertise in one structured monthly briefing, then turns it into a consistent stream of executive-grade assets. You stay focused on billable client engagements while your firm's market authority compounds.`,
+      author: "Zelvora Editorial Desk",
+      date: "2026-09-15",
       readTime: "4 min read",
       imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800",
-      category: "Strategy"
+      category: "Advisory Strategy"
     },
     {
       id: "blog-2",
-      title: "Handcrafted Premium Content vs. AI Slop: The Fight for Professional Trust",
-      excerpt: "Bland, automated AI content is flooding the market. Here's why premium brands must double down on authentic, human-designed assets to win high-ticket clients.",
-      content: `Walk through any social media feed today and you will be blasted with what we call 'AI-slop': generic, repetitive bullet-point summaries, artificial robot images, and paragraphs starting with 'In today's fast-paced digital landscape...'.
+      title: "The Death of AI Slop: Why Enterprise Buyers Demand Authentic Executive Voice",
+      excerpt: "Automated, generic AI posts are flooding executive feeds. Here is why boutique consultancies must insist on rigorous human editorial standards.",
+      content: `Social feeds and newsletters are inundated with robotic, prompt-generated summaries. Bulleted lists with rocket emojis, generic buzzwords, and shallow platitudes masquerading as thought leadership.
 
-High-ticket clients are extremely intelligent. They can smell low-effort automated content from a mile away, and it instantly devalues your brand.
+Sophisticated decision-makers detect low-effort automated content within three seconds—and it instantly devalues an advisory firm's credibility.
 
-### The Value of Craftsmanship
-Bespoke content strategy requires a deep understanding of human psychology, high-end visual design systems, and current macro-economic trends. A generic prompt cannot duplicate the nuance of your real client stories, your proprietary operational frameworks, or your refined aesthetic taste.
+### True Authority Cannot Be Prompted
+High-ticket enterprise clients do not pay for basic information; they pay for seasoned judgment, contrarian perspectives, and nuanced lessons forged through real market experience.
 
-### Our Human-First Guarantee
-At Zelvora, we use artificial intelligence for research acceleration and outline drafts — never for the final creative output. Every single carousel, post outline, visual alignment, and phrase is meticulously written and designed by a human expert. We build assets that make you proud.`,
-      author: "Elena Rostov, Creative Director",
-      date: "2026-07-02",
+A generic AI generator cannot replicate:
+- The exact conversational pushback a CEO gave during a restructuring.
+- The subtle tradeoffs between two competing organizational strategies.
+- The precise typographic elegance that commands respect from an enterprise buyer.
+
+### The Hybrid Editorial Standard
+At Zelvora Studio, we leverage intelligent research and structural analysis tools to accelerate background analysis. But every single word of executive ghostwriting, narrative rhythm, and visual asset composition is crafted, edited, and approved by human editorial strategists.
+
+When your name is on the byline, only genuine editorial excellence protects your reputation.`,
+      author: "Zelvora Editorial Desk",
+      date: "2026-09-22",
       readTime: "5 min read",
       imageUrl: "https://images.unsplash.com/photo-1542744094-3a31f103e35f?auto=format&fit=crop&q=80&w=800",
-      category: "Design"
+      category: "Editorial Standards"
     }
   ],
   pricing: [
@@ -283,14 +302,15 @@ At Zelvora, we use artificial intelligence for research acceleration and outline
       name: "Starter",
       price: "$1,490",
       period: "month",
-      description: "Designed for independent coaches, consultants, or boutique founders beginning to establish their digital authority.",
+      description: "Designed for solo managing directors, executive coaches, and boutique practice founders establishing consistent digital authority.",
       features: [
-        "LinkedIn & Twitter/X channel coverage",
-        "3 bespoke handcrafted posts per week",
-        "Custom editorial brand framework",
-        "Dedicated copywriter & designer",
-        "Client portal approval dashboard access",
-        "Basic monthly analytics & strategy review"
+        "LinkedIn & Twitter/X executive channel management",
+        "3 bespoke handcrafted executive posts per week",
+        "Monthly 45-minute voice & strategy extraction call",
+        "1 high-impact visual carousel deck per month",
+        "Mobile batch review via private preview link or WhatsApp/Slack",
+        "1 revision round per content batch",
+        "Monthly executive visibility & reach review"
       ]
     },
     {
@@ -298,15 +318,16 @@ At Zelvora, we use artificial intelligence for research acceleration and outline
       name: "Growth",
       price: "$2,850",
       period: "month",
-      description: "Our signature plan. Best for established professionals, luxury realtors, and agency owners seeking expansion.",
+      description: "Our signature plan. For established boutique consultancies and advisory firms requiring strong category authority and steady inbound demand.",
       features: [
-        "LinkedIn, Twitter/X, & Instagram presence",
-        "5 bespoke handcrafted posts per week",
-        "2 high-impact carousel slide decks per month",
-        "1 long-form thought-leadership blog/newsletter",
-        "Custom vector graphic templates & branding",
-        "Priority Slack support channel",
-        "Advanced comprehensive monthly performance review"
+        "LinkedIn & Twitter/X presence (optional Instagram visual syndication)",
+        "5 bespoke handcrafted executive posts per week",
+        "2 high-impact typographic carousel slide decks per month",
+        "1 long-form thought-leadership essay or executive newsletter per month",
+        "Monthly 45-minute strategic extraction session",
+        "Priority Slack/email editorial communication channel",
+        "Mobile batch review with 48-hour revision turnaround",
+        "Comprehensive monthly visibility & inbound attribution audit"
       ],
       isPopular: true
     },
@@ -315,24 +336,24 @@ At Zelvora, we use artificial intelligence for research acceleration and outline
       name: "Scale",
       price: "$4,900",
       period: "month",
-      description: "The ultimate omnipresence and lead-acceleration system for growing firms and venture-backed startups.",
+      description: "For multi-partner firms and growing advisory practices scaling cross-channel market dominance with zero internal friction.",
       features: [
-        "Full omnichannel coverage (Up to 4 channels)",
-        "Daily tailored content scheduling & publishing",
-        "Unlimited custom visual carousels & decks",
-        "2 long-form thought leadership essays/newsletters",
-        "Custom email campaign copywriting & strategy",
-        "Competitor gap & content analysis audits",
-        "Dedicated VIP Account Director & Executive Strategist",
-        "Real-time visual campaign performance metrics dashboard"
+        "Full multi-channel executive coverage (LinkedIn, Twitter/X, Newsletter, IG)",
+        "Daily tailored publishing & scheduled cadence (7 posts/week)",
+        "4 custom visual carousel decks & framework graphics per month",
+        "2 long-form thought-leadership essays or executive dispatches",
+        "Executive commentary monitoring & strategic conversation drivers",
+        "Dedicated Senior Editorial Director & Lead Visual Designer",
+        "Quarterly narrative repositioning & competitive gap audits",
+        "Real-time performance analytics & pipeline attribution review"
       ]
     }
   ],
   settings: {
-    tagline: "Run your business. We'll make sure the internet remembers you.",
-    contactEmail: "partnership@zelvora.ai",
-    contactPhone: "+1 (800) 935-8672",
-    officeAddress: "600 Montgomery St, San Francisco, CA 94111",
+    tagline: "Your expertise should be visible, even when you're busy running the business.",
+    contactEmail: "partnership@zelvora.studio",
+    contactPhone: "",
+    officeAddress: "Digital Editorial Studio • Operating Globally",
     slackConfigured: false,
     sheetsConfigured: false
   }
@@ -471,11 +492,10 @@ app.get("/api/ai-summary", async (req, res) => {
         address: db.settings.officeAddress,
       },
       verticals: [
-        "Executive Coaches & Consultants",
-        "Luxury Real Estate Brokers",
-        "Medical & Legal Practices",
-        "Architects & High-End Designers",
-        "Tech Founders & Venture Leaders"
+        "Founder-Led Boutique Consulting Firms",
+        "Executive Leadership & Strategy Advisors",
+        "M&A, Restructuring & Corporate Finance Advisors",
+        "Specialized High-Value Professional Practices"
       ]
     },
     pricingPlans: db.pricing,
@@ -498,54 +518,100 @@ app.get("/api/ai-summary", async (req, res) => {
 // Contact Lead Submission endpoint
 app.post("/api/contact", async (req, res) => {
   try {
-    const { name, business, email, phone, industry, message, contactMethod, budget } = req.body;
+    const { name, business, email, phone, industry, message, contactMethod, budget, _gotcha, hp, website_url_hp } = req.body;
     
-    // Form Validation
-    if (!name || !email || !business) {
-      return res.status(400).json({ error: "Missing required fields (Name, Business, Email)" });
+    // Honeypot spam defense (drops bot submissions silently)
+    if (_gotcha || hp || website_url_hp) {
+      return res.json({ success: true, message: "Audit request received." });
     }
+
+    // Input Sanitization & Validation
+    if (!name || typeof name !== "string" || !name.trim()) {
+      return res.status(400).json({ error: "Managing Partner or contact name is required." });
+    }
+    if (!business || typeof business !== "string" || !business.trim()) {
+      return res.status(400).json({ error: "Firm or practice name is required." });
+    }
+    if (!email || typeof email !== "string" || !email.trim()) {
+      return res.status(400).json({ error: "Work email address is required." });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      return res.status(400).json({ error: "Please enter a valid work email address." });
+    }
+
+    const cleanName = name.trim().slice(0, 100);
+    const cleanBusiness = business.trim().slice(0, 150);
+    const cleanEmail = email.trim().toLowerCase().slice(0, 150);
+    const cleanPhone = (phone && typeof phone === "string") ? phone.trim().slice(0, 50) : "N/A";
+    const cleanIndustry = (industry && typeof industry === "string") ? industry.trim().slice(0, 100) : "Boutique Advisory";
+    const cleanMessage = (message && typeof message === "string") ? message.trim().slice(0, 2000) : "No message provided";
+    const cleanContactMethod = (contactMethod && typeof contactMethod === "string") ? contactMethod.trim().slice(0, 30) : "email";
+    const cleanBudget = (budget && typeof budget === "string") ? budget.trim().slice(0, 100) : "Private Visibility Audit";
 
     const db = await getDB();
     
+    // Duplicate Prevention (within 3 minutes for identical email and firm)
+    const now = Date.now();
+    const existingDuplicate = db.leads.find(l => {
+      if (l.email.toLowerCase() === cleanEmail && l.business.toLowerCase() === cleanBusiness.toLowerCase()) {
+        const leadTime = new Date(l.timestamp).getTime();
+        return (now - leadTime) < 180000;
+      }
+      return false;
+    });
+
+    if (existingDuplicate) {
+      return res.json({
+        success: true,
+        duplicate: true,
+        lead: existingDuplicate,
+        message: "Your audit request is already recorded and is currently being prepared by our editorial desk."
+      });
+    }
+
     const newLead: Lead = {
-      id: "lead-" + Date.now(),
-      name,
-      business,
-      email,
-      phone: phone || "N/A",
-      industry: industry || "Unspecified",
-      message: message || "No message provided",
-      contactMethod: contactMethod || "email",
-      budget: budget || "Not specified",
+      id: "lead-" + now,
+      name: cleanName,
+      business: cleanBusiness,
+      email: cleanEmail,
+      phone: cleanPhone,
+      industry: cleanIndustry,
+      message: cleanMessage,
+      contactMethod: cleanContactMethod,
+      budget: cleanBudget,
       timestamp: new Date().toISOString(),
       source: "Contact Form",
       status: "new"
     };
 
+    // Primary store + append-only backup log
     db.leads.unshift(newLead);
     await saveDB(db);
+    await appendLeadBackup(newLead);
 
-    // SLACK INTEGRATION
+    // SLACK INTEGRATION (Triggered only when valid webhook is configured)
     const slackUrl = process.env.SLACK_WEBHOOK_URL;
     let slackSuccess = false;
-    if (slackUrl) {
+    if (slackUrl && slackUrl.startsWith("http")) {
       try {
         const slackPayload = {
-          text: `🚨 *New Lead Captured for Zelvora.AI*`,
+          text: `🚨 *New Visibility Audit Request for Zelvora Studio*`,
           attachments: [
             {
-              color: "#0066FF",
+              color: "#EA580C",
               fields: [
-                { title: "Client Name", value: name, short: true },
-                { title: "Business Name", value: business, short: true },
-                { title: "Email Address", value: email, short: true },
-                { title: "Phone", value: phone || "N/A", short: true },
-                { title: "Industry", value: industry || "N/A", short: true },
-                { title: "Budget Range", value: budget || "N/A", short: true },
-                { title: "Preferred Contact", value: contactMethod || "N/A", short: true },
-                { title: "Brief Message", value: message || "N/A", short: false },
-                { title: "Submitted At", value: new Date().toLocaleString(), short: true },
-                { title: "Source", value: "Website Contact Form", short: true }
+                { title: "Partner Name", value: cleanName, short: true },
+                { title: "Firm / Practice", value: cleanBusiness, short: true },
+                { title: "Work Email", value: cleanEmail, short: true },
+                { title: "Phone", value: cleanPhone, short: true },
+                { title: "Advisory Vertical", value: cleanIndustry, short: true },
+                { title: "Scope / Budget", value: cleanBudget, short: true },
+                { title: "Contact Preference", value: cleanContactMethod, short: true },
+                { title: "Bottleneck / Notes", value: cleanMessage, short: false },
+                { title: "Timestamp", value: new Date().toISOString(), short: true },
+                { title: "Source", value: "Zelvora.Studio Audit Intake", short: true }
               ]
             }
           ]
@@ -561,21 +627,21 @@ app.post("/api/contact", async (req, res) => {
       }
     }
 
-    // GOOGLE SHEETS INTEGRATION
+    // GOOGLE SHEETS INTEGRATION (Triggered only when valid URL configured)
     const sheetsUrl = process.env.GOOGLE_SHEETS_URL;
     let sheetsSuccess = false;
-    if (sheetsUrl) {
+    if (sheetsUrl && sheetsUrl.startsWith("http")) {
       try {
         const sheetsPayload = {
-          timestamp: new Date().toLocaleString(),
-          name,
-          business,
-          industry: industry || "N/A",
-          email,
-          phone: phone || "N/A",
-          budget: budget || "N/A",
-          message: message || "N/A",
-          source: "Website Contact Form",
+          timestamp: new Date().toISOString(),
+          name: cleanName,
+          business: cleanBusiness,
+          industry: cleanIndustry,
+          email: cleanEmail,
+          phone: cleanPhone,
+          budget: cleanBudget,
+          message: cleanMessage,
+          source: "Zelvora.Studio Audit Intake",
           status: "new"
         };
         const gRes = await fetch(sheetsUrl, {
@@ -589,7 +655,7 @@ app.post("/api/contact", async (req, res) => {
       }
     }
 
-    // SUPABASE CLOUD SYNC
+    // SUPABASE CLOUD SYNC (Triggered only when client is active)
     let supabaseSuccess = false;
     if (supabaseClient) {
       try {
@@ -612,76 +678,75 @@ app.post("/api/contact", async (req, res) => {
         if (!sbError) {
           supabaseSuccess = true;
         } else {
-          // Attempt table fallback or log silently
-          console.log("Supabase insert note:", sbError.message);
+          console.warn("Supabase lead sync note:", sbError.message);
         }
       } catch (sbErr) {
         console.warn("Supabase lead sync exception:", sbErr);
       }
     }
 
-    // SUPABASE EDGE FUNCTION EMAIL (RESEND)
-    const edgeFunctionEmailUrl =
-      process.env.SUPABASE_EDGE_FUNCTION_RESEND_URL ||
-      "https://jtcrrnngbgrmqczerfve.supabase.co/functions/v1/resend-email";
-    
+    // RESEND EMAIL CONFIRMATION (Triggered only with valid non-mock Edge Function)
+    const edgeFunctionEmailUrl = process.env.SUPABASE_EDGE_FUNCTION_RESEND_URL;
     let emailSent = false;
-    try {
-      const emailPayload = {
-        from: "Zelvora Studio <partnership@zelvora.studio>",
-        to: [email],
-        subject: "We received your brand visibility brief — Zelvora Studio",
-        html: `
-          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #111; line-height: 1.6;">
-            <div style="border-bottom: 2px solid #ea580c; padding-bottom: 12px; margin-bottom: 20px;">
-              <h2 style="margin: 0; color: #111; font-size: 20px; letter-spacing: -0.5px;">Zelvora Studio</h2>
-              <p style="margin: 4px 0 0 0; font-size: 12px; color: #666; font-family: monospace;">EXECUTIVE VISIBILITY & CONTENT STRATEGY</p>
+    if (edgeFunctionEmailUrl && edgeFunctionEmailUrl.startsWith("http") && !edgeFunctionEmailUrl.includes("jtcrrnngbgrmqczerfve") && SUPABASE_KEY) {
+      try {
+        const emailPayload = {
+          from: "Zelvora Studio <audit@zelvora.studio>",
+          to: [cleanEmail],
+          subject: "We received your Private Visibility Audit request — Zelvora Studio",
+          html: `
+            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #121110; line-height: 1.6;">
+              <div style="border-bottom: 2px solid #EA580C; padding-bottom: 12px; margin-bottom: 20px;">
+                <h2 style="margin: 0; color: #121110; font-size: 20px; letter-spacing: -0.5px;">Zelvora Studio</h2>
+                <p style="margin: 4px 0 0 0; font-size: 12px; color: #78716c; font-family: monospace;">OUTSOURCED EXECUTIVE EDITORIAL & VISIBILITY OPERATION</p>
+              </div>
+              <p>Dear ${cleanName},</p>
+              <p>Thank you for requesting a <strong>Private Visibility Audit</strong> for <strong>${cleanBusiness}</strong>. Our editorial desk has received your submission and initiated a preliminary benchmark of your digital presence against category peers in ${cleanIndustry}.</p>
+              <div style="background-color: #FAF9F5; border: 1px solid #e7e5e4; border-radius: 8px; padding: 16px; margin: 20px 0;">
+                <h3 style="margin-top: 0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: #57534e;">Audit Submission Details</h3>
+                <ul style="margin: 0; padding-left: 20px; font-size: 13px; color: #292524;">
+                  <li><strong>Managing Partner / Lead:</strong> ${cleanName} (${cleanEmail})</li>
+                  <li><strong>Practice / Firm:</strong> ${cleanBusiness}</li>
+                  <li><strong>Practice Focus:</strong> ${cleanIndustry}</li>
+                  <li><strong>Preferred Contact Channel:</strong> ${cleanContactMethod}</li>
+                </ul>
+              </div>
+              <p><strong>What happens next:</strong> Within 24 to 48 hours, our editorial desk will deliver your written visibility assessment, benchmark observations, and 2 tailored executive content concepts.</p>
+              <p style="margin-top: 30px; font-size: 12px; color: #a8a29e;">Zelvora Studio &bull; Managed Executive Editorial Operation &bull; audit@zelvora.studio</p>
             </div>
-            <p>Dear ${name},</p>
-            <p>Thank you for submitting your brand visibility brief for <strong>${business}</strong>. Our creative directors and editorial strategists are reviewing your target vertical (${industry || "General Executive"}).</p>
-            <div style="background-color: #f9f9f9; border: 1px solid #eaeaea; border-radius: 8px; padding: 16px; margin: 20px 0;">
-              <h3 style="margin-top: 0; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: #555;">Submission Overview</h3>
-              <ul style="margin: 0; padding-left: 20px; font-size: 13px; color: #333;">
-                <li><strong>Client:</strong> ${name} (${email})</li>
-                <li><strong>Business / Brand:</strong> ${business}</li>
-                <li><strong>Budget Tier:</strong> ${budget || "Custom Growth"}</li>
-                <li><strong>Preferred Contact:</strong> ${newLead.contactMethod}</li>
-              </ul>
-            </div>
-            <p>Our team will reach out within 24 hours to coordinate your 45-minute Strategy Alignment Sync.</p>
-            <p style="margin-top: 30px; font-size: 12px; color: #888;">Zelvora Studio &bull; 600 Montgomery St, San Francisco, CA 94111 &bull; partnership@zelvora.studio</p>
-          </div>
-        `
-      };
+          `
+        };
 
-      const emailRes = await fetch(edgeFunctionEmailUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${SUPABASE_KEY}`,
-          "apikey": SUPABASE_KEY
-        },
-        body: JSON.stringify(emailPayload)
-      });
-      emailSent = emailRes.ok;
-    } catch (emailErr) {
-      console.warn("Supabase Resend Edge Function notification note:", emailErr);
+        const emailRes = await fetch(edgeFunctionEmailUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${SUPABASE_KEY}`,
+            "apikey": SUPABASE_KEY
+          },
+          body: JSON.stringify(emailPayload)
+        });
+        emailSent = emailRes.ok;
+      } catch (emailErr) {
+        console.warn("Email dispatch note:", emailErr);
+      }
     }
 
     res.json({
       success: true,
       lead: newLead,
       integrations: {
-        slack: slackSuccess || !!slackUrl,
-        slackReal: !!slackUrl,
-        googleSheets: sheetsSuccess || !!sheetsUrl,
-        sheetsReal: !!sheetsUrl,
-        supabase: supabaseSuccess || !!supabaseClient,
+        slack: slackSuccess,
+        slackConfigured: !!slackUrl,
+        googleSheets: sheetsSuccess,
+        sheetsConfigured: !!sheetsUrl,
+        supabase: supabaseSuccess,
+        supabaseConfigured: !!supabaseClient,
         emailNotification: emailSent
       }
     });
   } catch (error: any) {
-    res.status(500).json({ error: error.message || "Failed to submit lead" });
+    res.status(500).json({ error: error.message || "Failed to submit audit request" });
   }
 });
 
@@ -693,9 +758,10 @@ app.post("/api/email/send", async (req, res) => {
       return res.status(400).json({ error: "Missing required fields: 'to', 'subject', 'html'" });
     }
 
-    const edgeFunctionEmailUrl =
-      process.env.SUPABASE_EDGE_FUNCTION_RESEND_URL ||
-      "https://jtcrrnngbgrmqczerfve.supabase.co/functions/v1/resend-email";
+    const edgeFunctionEmailUrl = process.env.SUPABASE_EDGE_FUNCTION_RESEND_URL;
+    if (!edgeFunctionEmailUrl || edgeFunctionEmailUrl.includes("jtcrrnngbgrmqczerfve") || !SUPABASE_KEY) {
+      return res.status(503).json({ error: "Email delivery service not configured in current environment." });
+    }
 
     const response = await fetch(edgeFunctionEmailUrl, {
       method: "POST",
@@ -730,7 +796,7 @@ app.post("/api/email/send", async (req, res) => {
 // SUPABASE STATUS & SYNC ENDPOINTS
 app.get("/api/supabase/status", async (req, res) => {
   const isConfigured = !!supabaseClient;
-  let connectionState = "idle";
+  let connectionState = isConfigured ? "idle" : "unconfigured";
   let tableAccessible = false;
   let count = 0;
 
@@ -745,13 +811,13 @@ app.get("/api/supabase/status", async (req, res) => {
         connectionState = "connected_table_pending";
       }
     } catch (e: any) {
-      connectionState = "error: " + e.message;
+      connectionState = "error: " + (e.message || "Connection failed");
     }
   }
 
   res.json({
     configured: isConfigured,
-    url: SUPABASE_URL,
+    url: SUPABASE_URL || "not_configured",
     status: connectionState,
     tableAccessible,
     recordSampleCount: count

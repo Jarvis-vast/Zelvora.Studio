@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, RefreshCw, Zap, Settings, Shield } from "lucide-react";
+import { ArrowRight, RefreshCw, Zap, Settings, Shield, Clock } from "lucide-react";
 
 interface ProcessViewProps {
   setActivePage: (page: string) => void;
@@ -9,70 +9,70 @@ export default function ProcessView({ setActivePage }: ProcessViewProps) {
   const steps = [
     {
       num: "01",
-      title: "Strategy Alignment Sync",
-      time: "Day 1-5",
-      desc: "We initiate a high-level 45-minute onboarding call to map your exact framework methodologies, corporate goals, tone parameters, and primary buyer avatars. We don't guess your brand voice — we extract it systematically.",
-      icon: <Settings size={22} className="text-brand-coral" />
+      title: "Strategic Extraction Call",
+      time: "45 Minutes Monthly",
+      desc: "We conduct a structured interview with the managing partner to extract real casework, contrarian market perspectives, and proprietary frameworks. You don't write a single sentence—our editorial desk records, structures, and synthesizes your exact insights.",
+      icon: <Settings size={20} className="text-brand-coral" />
     },
     {
       num: "02",
-      title: "Bespoke Assets Production",
-      time: "Day 5-12",
-      desc: "Our elite production team moves into motion. Writers draft tailored thought essays, designers build sophisticated visual slide decks, and copywriters structure conversion-optimized posts. Every asset is handcrafted.",
-      icon: <Zap size={22} className="text-brand-coral" />
+      title: "Senior Editorial Production",
+      time: "Days 2 to 10",
+      desc: "Our senior ghostwriters and typographic designers draft your bi-weekly content batch: long-form commentary, multi-slide framework carousels, and executive essays. Every piece is refined to match partner-level tone and peer-reviewed for editorial credibility.",
+      icon: <Zap size={20} className="text-brand-coral" />
     },
     {
       num: "03",
-      title: "The 1-Click Client Approval",
-      time: "Day 12-14",
-      desc: "Your custom content catalog is populated into your private, mobile-optimized approval portal. Review all visual designs, make inline notes, and approve in a single tap from your phone. Zero administrative time drain.",
-      icon: <RefreshCw size={22} className="text-brand-coral" />
+      title: "Rapid Mobile Review & Signoff",
+      time: "< 10 Minutes a Week",
+      desc: "Your upcoming posts and slide decks are delivered via a private mobile preview link or your dedicated WhatsApp/Slack channel. Review full typographic layouts, request tweaks via voice note, or approve the batch with a quick tap. Zero complicated project software.",
+      icon: <RefreshCw size={20} className="text-brand-coral" />
     },
     {
       num: "04",
-      title: "Omnichannel Dominance",
-      time: "Ongoing",
-      desc: "We schedule, optimize, and automatically publish across your designated platforms. We actively monitor comments, filter inbound opportunities, and send detailed growth impact audits every 30 days.",
-      icon: <Shield size={22} className="text-brand-coral" />
+      title: "Agreed Publishing & Inbound Tracking",
+      time: "Ongoing Cadence",
+      desc: "Content is scheduled directly via your approved social scheduler or delivered formatted with graphics ready for 1-tap posting by you or your practice manager. Every 30 days, we review profile engagement and inbound inquiry attribution.",
+      icon: <Shield size={20} className="text-brand-coral" />
     }
   ];
 
   return (
-    <div className="pt-32 bg-brand-alabaster text-brand-charcoal font-sans min-h-screen pb-20 grid-paper">
+    <div className="pt-28 bg-brand-alabaster text-brand-charcoal font-sans min-h-screen pb-20">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Title */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="text-xs font-sans font-extrabold text-brand-coral uppercase tracking-wider bg-brand-coral/5 px-3 py-1.5 rounded-full">
-            Our Workflow
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-xs font-mono font-bold text-brand-coral uppercase tracking-wider bg-brand-coral/5 border border-brand-coral/10 px-3 py-1 rounded-full">
+            Operating Methodology
           </span>
-          <h1 className="font-serif font-semibold text-4xl sm:text-6xl text-brand-charcoal tracking-tight mt-6 mb-6 leading-tight">
-            The autopilot content pipeline
+          <h1 className="font-serif font-semibold text-3xl sm:text-5xl text-brand-charcoal tracking-tight mt-4 mb-4 leading-tight">
+            The Autopilot Editorial Workflow
           </h1>
-          <p className="text-brand-stone/75 text-base sm:text-lg leading-relaxed">
-            Consistency is not about writing every morning — it is about building a robust, delegated operational engine that runs flawlessly behind the scenes.
+          <p className="text-brand-stone/75 text-sm sm:text-base leading-relaxed">
+            Consistent market presence is not about writing every morning—it is about deploying a disciplined editorial operating system that protects your billable hours.
           </p>
         </div>
 
-        {/* Chronological Steps */}
-        <div className="space-y-8 mb-24 max-w-5xl mx-auto">
+        {/* Steps */}
+        <div className="space-y-6 mb-20 max-w-4xl mx-auto">
           {steps.map((st, i) => (
-            <div key={i} className="editorial-card bg-white p-8 border border-brand-charcoal/5 relative overflow-hidden flex flex-col md:flex-row gap-8 items-start hover:border-brand-coral/25 transition-all duration-300 shadow-xs">
-              <div className="text-5xl font-serif font-bold text-brand-coral/10 shrink-0 select-none">
+            <div key={i} className="editorial-card bg-white p-7 sm:p-9 border border-brand-charcoal/8 rounded-2xl relative overflow-hidden flex flex-col md:flex-row gap-6 items-start hover:border-brand-coral/25 transition-all shadow-xs">
+              <div className="text-4xl font-serif font-bold text-brand-coral/20 shrink-0 select-none">
                 {st.num}
               </div>
               
-              <div className="flex-1 space-y-3">
+              <div className="flex-1 space-y-2">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h3 className="font-serif font-semibold text-2xl text-brand-charcoal tracking-tight">
+                  <h3 className="font-serif font-semibold text-xl text-brand-charcoal tracking-tight">
                     {st.title}
                   </h3>
-                  <span className="px-3.5 py-1 rounded-full text-xs font-sans font-bold bg-brand-coral/5 text-brand-coral border border-brand-coral/10">
+                  <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-brand-coral/5 text-brand-coral border border-brand-coral/10">
                     {st.time}
                   </span>
                 </div>
                 
-                <p className="text-sm text-brand-stone/70 leading-relaxed font-sans pt-2">
+                <p className="text-xs sm:text-sm text-brand-stone/75 leading-relaxed font-sans pt-1">
                   {st.desc}
                 </p>
               </div>
@@ -84,18 +84,20 @@ export default function ProcessView({ setActivePage }: ProcessViewProps) {
           ))}
         </div>
 
-        {/* Call to Action Banner */}
-        <div className="editorial-card bg-white border border-brand-charcoal/5 p-8 md:p-12 text-center max-w-4xl mx-auto relative overflow-hidden shadow-md">
-          <h2 className="font-serif font-semibold text-3xl text-brand-charcoal mb-4 tracking-tight leading-tight">Ready to reclaim your weekends?</h2>
-          <p className="text-sm text-brand-stone/75 leading-relaxed font-normal max-w-2xl mx-auto mb-8">
-            Take 2 minutes to submit your details. Our strategy team will research your firm and draft a bespoke content sample for your review, entirely complimentary.
+        {/* CTA Banner */}
+        <div className="editorial-card bg-white border border-brand-charcoal/8 p-8 md:p-12 text-center max-w-3xl mx-auto rounded-2xl shadow-xs">
+          <h2 className="font-serif font-semibold text-2xl sm:text-3xl text-brand-charcoal mb-3">
+            See the workflow applied to your practice
+          </h2>
+          <p className="text-xs sm:text-sm text-brand-stone/75 leading-relaxed font-sans max-w-xl mx-auto mb-6">
+            Request a Private Visibility Audit. Within 48 hours, our editorial desk will deliver an objective assessment of your current executive presence and 2 custom post concepts.
           </p>
           <button 
             onClick={() => setActivePage("contact")} 
-            className="inline-flex items-center gap-2 px-6 py-3.5 bg-brand-coral hover:bg-brand-coral/95 text-white text-xs font-bold rounded-full tracking-wide shadow-md shadow-brand-coral/10 transition-all hover:scale-[1.02] cursor-pointer"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-coral hover:bg-brand-coral/95 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-md shadow-brand-coral/10 transition-all cursor-pointer"
           >
-            Book Your Complimentary Strategy Audit
-            <ArrowRight size={14} />
+            <span>Request a Private Visibility Audit</span>
+            <ArrowRight size={13} />
           </button>
         </div>
 

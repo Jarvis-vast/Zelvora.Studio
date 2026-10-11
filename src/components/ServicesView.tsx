@@ -1,5 +1,5 @@
 import React from "react";
-import { Layers, RefreshCw, FileText, Check, Sparkles, TrendingUp, Zap, ArrowRight, Instagram, MessageSquare } from "lucide-react";
+import { Layers, RefreshCw, FileText, Check, Sparkles, TrendingUp, Zap, ArrowRight, ShieldCheck } from "lucide-react";
 
 interface ServicesViewProps {
   setActivePage: (page: string) => void;
@@ -8,79 +8,109 @@ interface ServicesViewProps {
 export default function ServicesView({ setActivePage }: ServicesViewProps) {
   const capabilities = [
     {
-      title: "Content Strategy & Alignment",
-      desc: "We analyze your target market, extract your proprietary intellectual methodologies, and construct a bespoke monthly content matrix matching your corporate vision.",
-      icon: <Layers size={22} className="text-brand-coral" />,
-      features: ["Methodology extraction audits", "Target partner alignment mapping", "Platform cadence configuration", "Custom topic taxonomy modeling"]
+      title: "Strategic Voice & IP Extraction",
+      desc: "In one structured 45-minute monthly session, we extract your casework lessons, contrarian industry viewpoints, and proprietary advisory frameworks without consuming your billable hours.",
+      icon: <Layers size={20} className="text-brand-coral" />,
+      features: [
+        "Structured monthly partner interview",
+        "Proprietary framework translation",
+        "Executive tone calibration",
+        "Topic taxonomy & cadence modeling"
+      ]
     },
     {
-      title: "Handcrafted Visual Carousels",
-      desc: "Stop using boring bullet-point walls. Our designers construct high-contrast, premium visual slides and vector graphics that stand out on crowded professional grids.",
-      icon: <Sparkles size={22} className="text-brand-coral" />,
-      features: ["Custom visual direction guidelines", "Original graphic assets (no stocks)", "High-converting copy layouts", "Optimized PDF slider files"]
+      title: "Executive Ghostwriting",
+      desc: "Senior human editors craft narrative-driven LinkedIn posts and industry commentary that command respect from board members, CEOs, and private equity operators.",
+      icon: <FileText size={20} className="text-brand-coral" />,
+      features: [
+        "Human-crafted executive commentary",
+        "Contrarian point-of-view essays",
+        "Zero generic prompt templates",
+        "Peer-reviewed editorial standards"
+      ]
     },
     {
-      title: "Thought Leadership Essays",
-      desc: "We ghostwrite comprehensive essays and long-form newsletters (Substack, LinkedIn articles, Beehiiv) to cement your absolute intellectual authority in your domain.",
-      icon: <FileText size={22} className="text-brand-coral" />,
-      features: ["Deep research-driven ghostwriting", "Structured executive narratives", "Newsletter design & layouts", "Authority funnel coordination"]
+      title: "Typographic Visual Carousels",
+      desc: "Stop using boring text walls. Our designers build high-contrast, typographic carousel slides and framework diagrams optimized for executive engagement.",
+      icon: <Sparkles size={20} className="text-brand-coral" />,
+      features: [
+        "Bespoke typography-first slide layouts",
+        "Framework diagram visualization",
+        "High-contrast editorial palettes",
+        "Formatted 1080x1350 document slides"
+      ]
     },
     {
-      title: "Twitter/X Thread Orchestration",
-      desc: "Capture rapid, organic engagement loops. We design elegant threads analyzing macro market moves, company case studies, and strategic advice.",
-      icon: <Zap size={22} className="text-brand-coral" />,
-      features: ["Hook-optimization matrices", "Story-driven narrative structures", "Formatting optimized for X engagement", "Thread-publishing automation"]
+      title: "Executive Newsletters & Dispatches",
+      desc: "Ghostwritten bi-weekly or monthly long-form briefs (Substack, Beehiiv, or LinkedIn Newsletters) to nurture warm referral networks and shorten inbound sales cycles.",
+      icon: <Zap size={20} className="text-brand-coral" />,
+      features: [
+        "Deep research-backed executive briefs",
+        "Advisory framework case dissections",
+        "Newsletter layout and distribution",
+        "Warm network authority maintenance"
+      ]
     },
     {
-      title: "The 14-Day Approval Board",
-      desc: "A streamlined client approval interface. Zero complicated logins. Check copy, examine slide previews, leave feedback, and approve in a single tap.",
-      icon: <RefreshCw size={22} className="text-brand-coral" />,
-      features: ["Mobile-optimized interface", "No account credentials required", "One-tap approvals & revisions", "Active collaboration timelines"]
+      title: "Rapid Mobile Review & Approval",
+      desc: "Zero SaaS friction. We send your upcoming bi-weekly draft batch via a private mobile preview link or direct WhatsApp/Slack channel. Review full posts and carousels on your phone in under 5 minutes. Tap approve or dictate quick voice notes.",
+      icon: <RefreshCw size={20} className="text-brand-coral" />,
+      features: [
+        "Private mobile preview link or WhatsApp/Slack",
+        "Zero dashboard or login overhead",
+        "Voice-memo or inline revision notes",
+        "48-hour turnarounds on agreed edits"
+      ]
     },
     {
-      title: "Monthly Authority Audits",
-      desc: "We do not just publish and hope. Every 30 days, we run detailed performance analytics auditing audience growth, profile views, and warm lead capture metrics.",
-      icon: <TrendingUp size={22} className="text-brand-coral" />,
-      features: ["Inbound lead attribution tracking", "Content resonance heatmapping", "Algorithm adjustment updates", "Quarterly strategy revision syncs"]
+      title: "Organic Authority Audits",
+      desc: "We analyze executive profile reach, audience resonance, and inbound partner inquiries every 30 days, continually refining the content matrix based on real engagement data.",
+      icon: <TrendingUp size={20} className="text-brand-coral" />,
+      features: [
+        "Inbound inquiry attribution review",
+        "Content resonance analytics",
+        "Competitive peer gap analysis",
+        "Quarterly narrative repositioning"
+      ]
     }
   ];
 
   return (
-    <div className="pt-32 bg-brand-alabaster text-brand-charcoal font-sans min-h-screen pb-20 grid-paper">
+    <div className="pt-28 bg-brand-alabaster text-brand-charcoal font-sans min-h-screen pb-20">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="text-xs font-sans font-extrabold text-brand-coral uppercase tracking-wider bg-brand-coral/5 px-3 py-1.5 rounded-full">
-            Services & Capabilities
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-xs font-mono font-bold text-brand-coral uppercase tracking-wider bg-brand-coral/5 border border-brand-coral/10 px-3 py-1 rounded-full">
+            Specialist Editorial Capabilities
           </span>
-          <h1 className="font-serif font-semibold text-4xl sm:text-6xl text-brand-charcoal tracking-tight mt-6 mb-6 leading-tight">
-            Elite content strategy and brand presence
+          <h1 className="font-serif font-semibold text-3xl sm:text-5xl text-brand-charcoal tracking-tight mt-4 mb-4 leading-tight">
+            Outsourced Executive Visibility
           </h1>
-          <p className="text-brand-stone/75 text-base sm:text-lg leading-relaxed">
-            We do not sell standard templates or automated scheduling. We build cohesive visual engines and authority strategies that earn premium trust from target clients on complete autopilot.
+          <p className="text-brand-stone/75 text-sm sm:text-base leading-relaxed">
+            We don't sell generic marketing retainers or automated software tools. We run a dedicated executive editorial department that turns partner expertise into undeniable market authority.
           </p>
         </div>
 
         {/* Capabilities Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {capabilities.map((cap, i) => (
-            <div key={i} className="editorial-card bg-white p-8 border border-brand-charcoal/5 flex flex-col justify-between hover:border-brand-coral/25 transition-all duration-300 shadow-xs">
+            <div key={i} className="editorial-card bg-white p-8 border border-brand-charcoal/8 rounded-2xl flex flex-col justify-between hover:border-brand-coral/25 transition-all shadow-xs">
               <div>
-                <div className="p-3 bg-brand-coral/5 border border-brand-coral/10 text-brand-coral rounded-xl w-fit mb-6">
+                <div className="p-3 bg-brand-coral/5 border border-brand-coral/10 text-brand-coral rounded-xl w-fit mb-5">
                   {cap.icon}
                 </div>
-                <h3 className="font-serif font-semibold text-2xl text-brand-charcoal tracking-tight mb-3">
+                <h3 className="font-serif font-semibold text-xl text-brand-charcoal tracking-tight mb-3">
                   {cap.title}
                 </h3>
-                <p className="text-sm text-brand-stone/70 leading-relaxed mb-6">
+                <p className="text-xs text-brand-stone/75 leading-relaxed font-sans mb-6">
                   {cap.desc}
                 </p>
               </div>
 
-              <div className="border-t border-brand-charcoal/5 pt-5 space-y-2.5">
+              <div className="border-t border-brand-charcoal/5 pt-4 space-y-2">
                 {cap.features.map((f, idx) => (
-                  <div key={idx} className="flex items-center gap-2.5 text-xs text-brand-stone/75 font-semibold">
+                  <div key={idx} className="flex items-center gap-2 text-xs text-brand-stone/80 font-medium">
                     <Check size={12} className="text-brand-coral shrink-0" />
                     <span>{f}</span>
                   </div>
@@ -90,62 +120,52 @@ export default function ServicesView({ setActivePage }: ServicesViewProps) {
           ))}
         </div>
 
-        {/* Workflow Showcase */}
-        <div className="editorial-card bg-white border border-brand-charcoal/5 p-8 md:p-12 relative overflow-hidden mb-16 shadow-md">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-brand-coral/5 rounded-full filter blur-[100px] pointer-events-none" />
-          
+        {/* Operating Architecture Banner */}
+        <div className="editorial-card bg-white border border-brand-charcoal/8 p-8 md:p-12 rounded-2xl relative overflow-hidden mb-16 shadow-xs">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-5">
-              <span className="text-xs font-sans font-extrabold text-brand-coral uppercase tracking-wider bg-brand-coral/5 px-3 py-1.5 rounded-full">
-                The Approval Board
+            <div className="lg:col-span-6 space-y-4">
+              <span className="text-xs font-mono font-bold text-brand-coral uppercase tracking-wider bg-brand-coral/5 px-3 py-1 rounded-full">
+                Zero Operational Drag
               </span>
-              <h2 className="font-serif font-semibold text-3xl sm:text-4xl text-brand-charcoal mt-6 mb-4 tracking-tight leading-tight">
-                Your creative pipeline on absolute rails
+              <h2 className="font-serif font-semibold text-2xl sm:text-4xl text-brand-charcoal tracking-tight">
+                Your practice stays focused on clients. We keep you top-of-mind.
               </h2>
-              <p className="text-sm text-brand-stone/75 leading-relaxed font-normal mb-6">
-                Busy founders don't want to learn confusing software, handle messy file shares, or manage endless threads.
+              <p className="text-xs sm:text-sm text-brand-stone/75 leading-relaxed font-sans">
+                Founders and managing partners should never spend weekends wrestling with social post schedulers, visual canvas editors, or copywriting drafts.
               </p>
-              <p className="text-sm text-brand-stone/75 leading-relaxed font-normal mb-6">
-                Our proprietary 14-day client pipeline lets you review ready-to-publish graphic slides, Twitter essays, and LinkedIn copy from your mobile browser in seconds. Review, leave feedback, or approve with one tap.
+              <p className="text-xs sm:text-sm text-brand-stone/75 leading-relaxed font-sans">
+                With Zelvora Studio, 60 minutes a month of client commitment yields a continuous stream of publication-ready, partner-caliber authority assets.
               </p>
-              <button 
-                onClick={() => setActivePage("contact")} 
-                className="flex items-center gap-2 px-6 py-3 rounded-full bg-brand-coral text-white text-xs font-bold tracking-wide hover:bg-brand-coral/95 transition-all shadow-md shadow-brand-coral/10 cursor-pointer"
-              >
-                Request Strategy Blueprint
-                <ArrowRight size={12} />
-              </button>
+              <div className="pt-2">
+                <button 
+                  onClick={() => setActivePage("contact")} 
+                  className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand-coral text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-coral/95 transition-all shadow-md shadow-brand-coral/10 cursor-pointer"
+                >
+                  <span>Request a Private Visibility Audit</span>
+                  <ArrowRight size={13} />
+                </button>
+              </div>
             </div>
 
-            <div className="lg:col-span-7 rounded-2xl bg-brand-cream border border-brand-charcoal/5 p-6 space-y-4 font-sans text-xs shadow-xs">
-              <div className="flex items-center justify-between border-b border-brand-charcoal/5 pb-3">
-                <span className="font-mono text-brand-stone/40 font-bold">[PREVIEW PORTAL]</span>
-                <span className="font-mono text-brand-coral uppercase text-[10px] tracking-wider font-extrabold bg-brand-coral/5 px-2 py-0.5 rounded-full">
-                  1-Tap Approved
-                </span>
+            <div className="lg:col-span-6 rounded-xl bg-brand-cream/60 border border-brand-charcoal/8 p-6 space-y-3 font-sans text-xs">
+              <div className="font-mono text-[11px] font-bold text-brand-stone/50 uppercase tracking-wider mb-2">
+                Monthly Executive Cadence Summary
               </div>
-              <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-white border border-brand-charcoal/5 flex items-start gap-3 shadow-xs">
-                  <span className="p-2 rounded-lg bg-brand-coral/5 text-brand-coral border border-brand-coral/10 mt-0.5 font-bold font-mono text-[10px]">#Z-841</span>
-                  <div>
-                    <h4 className="font-serif font-semibold text-lg text-brand-charcoal mb-1">LinkedIn Strategy Deconstruction Carousel</h4>
-                    <p className="text-xs text-brand-stone/70 leading-relaxed mb-2">Slide cover: "The Silent Loss: Why Silence is Costing You Inbound Trust". Custom visual style: Minimal light cream layout, high-end editorial fonts.</p>
-                    <span className="text-[10px] font-sans font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-100">
-                      Approved for Publishing (Jul 12)
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-white border border-brand-charcoal/5 flex items-start gap-3 shadow-xs">
-                  <span className="p-2 rounded-lg bg-brand-coral/5 text-brand-coral border border-brand-coral/10 mt-0.5 font-bold font-mono text-[10px]">#Z-842</span>
-                  <div>
-                    <h4 className="font-serif font-semibold text-lg text-brand-charcoal mb-1">Weekly Thought Essay for Substack</h4>
-                    <p className="text-xs text-brand-stone/70 leading-relaxed mb-2">Title: "Bespoke Trust in the Age of AI-Slop: The Sophisticated Buyer Standard". Focus: Elite brand positioning and customer alignment.</p>
-                    <span className="text-[10px] font-sans font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-100">
-                      Approved for Publishing (Jul 15)
-                    </span>
-                  </div>
-                </div>
+              <div className="flex items-start gap-3 py-2 border-b border-brand-charcoal/5">
+                <span className="font-mono text-brand-coral font-bold shrink-0">Wk 1</span>
+                <span><strong>45-Min Extraction Sync:</strong> Partner debrief extracting 4 distinct strategic themes and proprietary frameworks.</span>
+              </div>
+              <div className="flex items-start gap-3 py-2 border-b border-brand-charcoal/5">
+                <span className="font-mono text-brand-coral font-bold shrink-0">Wk 2</span>
+                <span><strong>Batch 1 Delivery:</strong> 7 to 10 executive posts and carousel decks populated into private mobile review portal.</span>
+              </div>
+              <div className="flex items-start gap-3 py-2 border-b border-brand-charcoal/5">
+                <span className="font-mono text-brand-coral font-bold shrink-0">Wk 3</span>
+                <span><strong>Batch 2 Delivery:</strong> Mid-month commentary posts and long-form thought leadership essay ready for approval.</span>
+              </div>
+              <div className="flex items-start gap-3 py-2">
+                <span className="font-mono text-brand-coral font-bold shrink-0">Wk 4</span>
+                <span><strong>Authority Audit:</strong> Monthly resonance review, peer benchmarking adjustments, and next month's narrative outline.</span>
               </div>
             </div>
           </div>

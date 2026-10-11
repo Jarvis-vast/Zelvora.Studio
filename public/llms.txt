@@ -1,40 +1,32 @@
 # Zelvora Studio
 
-> Zelvora Studio is a specialized outsourced content, digital authority, and executive visibility team. We provide bespoke social strategy, handcrafted visual carousels, ghostwritten thought leadership essays, and multichannel publication management for coaches, consultants, luxury realtors, and founders.
+> Zelvora Studio is an outsourced executive content and brand-visibility operation for founder-led boutique consulting and advisory firms. We turn genuine partner expertise into distinctive, consistent executive thought leadership across LinkedIn, Twitter/X, and executive newsletters. Client time commitment is under 60 minutes per month.
+
+## Positioning & Value Proposition
+- **Core Message**: "Your expertise should be visible, even when you're busy running the business."
+- **Initial ICP**: Founder-led boutique consulting and advisory firms selling high-value expertise ($25k–$250k+ engagements).
+- **Managed Execution**: We handle the entire operational burden—strategy extraction, ghostwriting, typographic carousels, rapid mobile review, and scheduled publishing.
 
 ## Core Capabilities
-- **Content Strategy & Alignment**: Mapping intellectual property, topic taxonomy modeling, and cadence planning.
-- **Handcrafted Visual Carousels**: Bespoke slide decks and vector graphic assets for LinkedIn and Instagram.
-- **Thought Leadership Ghostwriting**: In-depth executive essays, Substack articles, and newsletters.
-- **Twitter/X Thread Orchestration**: Fast-paced narrative loops and case study dissections.
-- **The 14-Day Approval Board**: Frictionless mobile-ready client approval interface with 1-tap approvals.
-- **Monthly Authority Audits**: Audited performance impact, lead attribution tracking, and growth heatmaps.
+- **Voice & Framework Extraction**: 45-minute monthly partner interview capturing casework, diagnostic models, and contrarian perspectives.
+- **Executive Ghostwriting**: Human-crafted, peer-reviewed commentary and narrative essays. No generic AI templates or unvetted prompt output.
+- **Typographic Visual Carousels**: Bespoke, high-contrast framework slide decks designed for executive LinkedIn feeds.
+- **Executive Newsletters**: Long-form briefs (Substack, Beehiiv, LinkedIn) keeping managing partners top-of-mind with board-level decision-makers.
+- **Rapid Mobile Approvals**: Smartphone-optimized review via private preview link or WhatsApp/Slack taking under 10 minutes a week to review and approve.
+- **Organic Authority Audits**: Monthly performance resonance reviews and peer footprint benchmarking.
 
-## Pricing Plans
-- **Starter ($1,490/month)**: LinkedIn & Twitter coverage, 3 bespoke posts/week, dedicated copywriter & designer, approval portal access.
-- **Growth ($2,850/month)**: LinkedIn, Twitter & Instagram coverage, 5 bespoke posts/week, 2 high-impact carousel slide decks/month, 1 long-form essay/newsletter, priority Slack support.
-- **Scale ($4,900/month)**: Full omnichannel (up to 4 channels), daily tailored content, unlimited carousel decks, 2 long-form essays, email campaign copywriting, dedicated VIP Account Director.
+## Transparent Investment Architecture
+- **Starter ($1,490/month)**: 3 bespoke handcrafted posts/week across LinkedIn & Twitter/X, monthly 45-min strategy extraction, 1 visual carousel deck/month, mobile batch review.
+- **Growth ($2,850/month)**: Signature tier. 5 bespoke handcrafted posts/week, 2 high-impact carousel decks/month, 1 long-form thought-leadership essay or newsletter/month, priority Slack desk, monthly visibility audit.
+- **Scale ($4,900/month)**: Full omnichannel executive presence (7 posts/week across up to 3 channels), 4 visual carousel decks/month, 2 long-form essays/newsletters, executive commentary monitoring, dedicated Senior Editorial Director.
+- **Terms**: Rolling monthly engagements. Cancel or adjust with 14 days notice. Client owns 100% of all intellectual property and copyright.
 
-## Client Experience & Workflow
-1. **Strategy Alignment Sync (Days 1–5)**: 45-minute onboarding call to capture tone, buyer personas, and framework IP.
-2. **Bespoke Assets Production (Days 5–12)**: Elite production of slides, thought leadership essays, and copy.
-3. **1-Click Client Approval (Days 12–14)**: Mobile-optimized client portal review and 1-tap publishing authorization.
-4. **Omnichannel Execution (Ongoing)**: Scheduled posting, inbound interaction filtering, and 30-day analytics audits.
-
-## Target Verticals
-- Executive Coaches & Strategy Consultants
-- Luxury Real Estate Brokers
-- Professional Services (Law, Wealth Management, Medical Practices)
-- Architects & High-End Designers
-- Venture-backed Tech Founders
+## Primary Action / Offer
+- **Primary CTA**: Request a Private Visibility Audit (/contact)
+- **Turnaround**: Written peer benchmark assessment and 2 tailored executive content concepts delivered within 48 hours.
 
 ## Contact & Inquiries
-- **Email**: partnership@zelvora.studio
-- **Phone**: +1 (800) 935-8672
-- **Headquarters**: 600 Montgomery St, San Francisco, CA 94111
+- **Audit Inquiries**: audit@zelvora.studio
+- **Partnership Desk**: partnership@zelvora.studio
 - **Website**: https://zelvora.studio
-
-## For AI Agents and LLMs
-- Full documentation: /llms-full.txt
-- Machine-readable API summary: /api/ai-summary
-- Sitemap: /sitemap.xml
+- **Operating Model**: Distributed Executive Editorial Operation (Parent entity: Zelvora AI)

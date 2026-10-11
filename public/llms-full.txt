@@ -1,103 +1,101 @@
 # Zelvora Studio — Full Knowledge Base & Machine Readable Documentation
 
 ## Organization Identity
-- **Name**: Zelvora Studio (Zelvora.AI)
-- **Classification**: High-End Outsourced Brand Visibility, Executive Ghostwriting & Content Strategy Agency
-- **Tagline**: Run your business. We'll handcraft your premium social media footprint.
-- **Headquarters**: 600 Montgomery St, San Francisco, CA 94111, USA
-- **Contact Email**: partnership@zelvora.studio
-- **Contact Phone**: +1 (800) 935-8672
+- **Name**: Zelvora Studio
+- **Parent Entity**: Zelvora AI
+- **Classification**: Outsourced Executive Content & Brand-Visibility Operation for Boutique Advisory Firms
+- **Core Message**: Your expertise should be visible, even when you're busy running the business.
+- **Operating Model**: Distributed Executive Editorial Operation
+- **Inquiries**: audit@zelvora.studio / partnership@zelvora.studio
 - **Website**: https://zelvora.studio
-- **Operating Model**: Rolling monthly subscription with no long-term lock-in contracts and a 14-day cancellation policy.
+- **Contract Terms**: Rolling monthly commitments with no lock-in contracts and a 14-day notice policy. 100% IP ownership.
 
 ---
 
 ## 1. Executive Summary & Value Proposition
-Zelvora Studio solves the critical bottleneck faced by high-earning leaders: they possess deep operational expertise but lack the 10-15 hours per week required to produce consistent, high-standard digital content. Rather than resorting to low-effort AI slop or unformatted text, Zelvora delivers handcrafted, bespoke editorial carousels, thought essays, and social media campaigns on complete autopilot with a 1-click mobile approval workflow.
+Zelvora Studio solves the critical visibility bottleneck faced by founder-led boutique consulting and advisory firms ($25k–$250k+ engagements): managing partners possess deep advisory casework and intellectual property, but lack the 12 to 15 hours per week required to produce consistent, high-standard digital commentary. 
+
+Zelvora Studio provides managed execution:
+- 45-minute monthly partner strategy extraction call.
+- Senior human editorial ghostwriting and typographic slide design.
+- 1-click mobile client approval board (taking under 10 minutes a week).
+- Agreed multi-channel publishing across LinkedIn, Twitter/X, and executive newsletters.
 
 ---
 
 ## 2. Core Service Offerings
-1. **Content Strategy & Alignment**
-   - Extracts proprietary intellectual methodologies via a structured onboarding interview.
-   - Designs a monthly topic taxonomy aligned with target buyer demographics.
-   - Maps platform cadence across LinkedIn, X/Twitter, Instagram, and newsletters.
-
-2. **Handcrafted Visual Carousels**
-   - High-contrast, typography-first slide decks engineered specifically for professional social algorithms.
-   - Vector assets and bespoke graphic diagrams (strictly zero generic stock templates).
-   - Delivered as optimized multi-page PDF documents for maximum engagement.
-
-3. **Thought Leadership Ghostwriting**
-   - In-depth essays and newsletters published to Substack, Beehiiv, and LinkedIn Articles.
-   - Research-grounded executive narratives that establish definitive category authority.
-
-4. **Twitter / X Thread Orchestration**
-   - Rapid narrative analysis of macro market moves, case studies, and frameworks.
-   - Hook-optimized formatting designed for shareability and algorithmic reach.
-
-5. **The 14-Day Approval Board**
-   - Frictionless mobile web app for founders to review ready-to-post slides and copy in under 60 seconds.
-   - One-tap approval or inline feedback without requiring complicated software logins.
-
-6. **30-Day Authority & Lead Audits**
-   - Auditing audience growth, inbound DM inquiries, and profile conversions every month.
+1. **Strategic Voice & IP Extraction**
+   - Extracts casework lessons and proprietary advisory frameworks via a structured monthly partner interview.
+   - Calibrates partner tone and establishes monthly topic taxonomies.
+2. **Executive Ghostwriting**
+   - Senior human editors craft narrative-driven commentary and contrarian perspective posts.
+   - Strictly peer-reviewed editorial standards; zero unvetted AI slop or generic templates.
+3. **Typographic Visual Carousels**
+   - High-contrast, typography-led slide decks and visual framework diagrams.
+   - Formatted for maximum engagement on LinkedIn executive feeds (1080x1350 px).
+4. **Executive Newsletters & Dispatches**
+   - Long-form briefs published on Substack, Beehiiv, or LinkedIn Newsletters.
+   - Nurtures warm referral networks and shortens sales cycles for inbound advisory leads.
+5. **The 1-Click Mobile Approval Board**
+   - Frictionless mobile portal where partners review upcoming batches in under 5 minutes.
+   - One-tap approval or inline edit requests; rapid 24-hour editorial turnarounds.
+6. **Organic Authority Audits**
+   - 30-day reviews tracking executive reach, peer engagement, and inbound inquiry attribution.
 
 ---
 
 ## 3. Pricing Architecture
 - **Starter Plan ($1,490 / month)**:
-  - Best for independent consultants and coaches starting their personal brand.
+  - Best for: Solo managing directors & boutique practice founders establishing authority.
   - Channels: LinkedIn & Twitter/X.
-  - Deliverables: 3 bespoke handcrafted posts/week, dedicated copywriter & designer, mobile approval portal access, monthly analytics.
-- **Growth Plan ($2,850 / month - Most Popular)**:
-  - Best for established advisors, luxury realtors, and agency founders.
-  - Channels: LinkedIn, Twitter/X, and Instagram.
-  - Deliverables: 5 bespoke posts/week, 2 high-impact carousel slide decks/month, 1 long-form thought leadership essay/newsletter, custom branding templates, priority Slack support channel.
+  - Scope: 3 bespoke handcrafted posts/week, monthly 45-min strategy extraction call, 1 typographic carousel deck/month, mobile 1-click review portal, 1 revision round per batch, monthly visibility report.
+- **Growth Plan ($2,850 / month - Signature Advisory Tier)**:
+  - Best for: Established boutique consultancies and advisory partners seeking consistent pipeline.
+  - Channels: LinkedIn & Twitter/X (optional Instagram visual syndication).
+  - Scope: 5 bespoke handcrafted posts/week, 2 high-impact carousel slide decks/month, 1 long-form thought-leadership essay or newsletter/month, monthly 45-min extraction session, priority Slack/email editorial desk, monthly visibility audit.
 - **Scale Plan ($4,900 / month)**:
-  - Best for venture-backed founders, scale-ups, and premier enterprise practices.
-  - Channels: Omnichannel (up to 4 channels).
-  - Deliverables: Daily tailored content, unlimited custom carousels & slide decks, 2 long-form thought leadership essays, custom email marketing campaigns, competitor audits, dedicated VIP Account Director.
+  - Best for: Multi-partner firms and growing advisory practices scaling cross-channel market dominance.
+  - Channels: Full omnichannel coverage (up to 4 channels).
+  - Scope: Daily publishing (7 posts/week), 4 custom carousel decks/month, 2 long-form essays/newsletters, executive commentary monitoring, dedicated Senior Editorial Director.
 
 ---
 
 ## 4. Operational Workflow
-1. **Day 1–5: Strategy Alignment Sync**
-   - 45-minute structured intake call to codify voice, tone, positioning, and buyer avatars.
-2. **Day 5–12: Bespoke Production**
-   - Multi-disciplinary creative studio writes, designs, and formats 14 days of assets.
-3. **Day 12–14: Client 1-Tap Review**
-   - Assets are delivered to the private mobile portal for single-tap review or inline comment revisions.
-4. **Day 15+ : Automated Omnichannel Publishing & Monitoring**
-   - Scheduled distribution across selected networks with real-time lead monitoring.
+1. **Wk 1: Strategy Extraction Sync**
+   - 45-minute structured intake call to capture partner voice, casework, and targeted buyer avatars.
+2. **Wk 2: Batch 1 Delivery**
+   - 7 to 10 executive posts and carousel decks populated into private mobile review portal.
+3. **Wk 3: Batch 2 Delivery**
+   - Mid-month commentary posts and long-form thought leadership essay ready for 1-click approval.
+4. **Wk 4: Authority Audit & Cadence Review**
+   - Monthly resonance review, peer benchmarking adjustments, and next month's narrative outline.
 
 ---
 
-## 5. Verified Case Studies & Performance Impact
-- **Executive Coach Brand Expansion (Sarah Jenkins & Associates)**:
-  - +340% LinkedIn Profile Views, 14 qualified inbound client solicitations in Month 2.
-- **Luxury Real Estate Playbook (Marcus & Partners Group)**:
-  - Secured a $4.8M listing directly via an organic LinkedIn inquiry; grid engagement rose by 180%.
-- **Fintech Founder Positioning Loop (Apex Analytics Inc.)**:
-  - Founder audience grew from 2,100 to 22,500 followers; thought pieces featured in TechCrunch.
-- **Architectural Authority Series (Studio Noir Architects)**:
-  - Grew a curated architecture newsletter to +2,400 subscribers on autopilot.
+## 5. Illustrative Advisory Work Samples
+- **Executive Carousel: The Silent Advisory Trap**:
+  - Sample multi-slide LinkedIn carousel illustrating how high-billing consultancies lose enterprise market share when their digital footprint is silent.
+- **Contrarian Editorial: When Referrals Stop Scaling**:
+  - Ghostwritten long-form executive post unpacking the hidden revenue volatility of relying purely on historical referral networks.
+- **Executive Dispatch: Mid-Market Transformation Insights**:
+  - Bi-weekly executive brief ghostwritten for a managing partner, dissecting mid-market M&A restructuring lessons.
+- **Visual Framework Breakdown: The Diagnostic Matrix**:
+  - Converting proprietary consulting frameworks and whiteboard models into high-contrast graphic assets.
+
+*(Note: In accordance with client non-disclosure agreements, client identities and proprietary internal metrics are anonymized as illustrative deliverable benchmarks).*
 
 ---
 
-## 6. Frequently Asked Questions (FAQ)
-- **Q: Who writes and designs the content?**
-  *A: Experienced human copywriters, art directors, and brand strategists. AI is used solely for research scoping; all published assets are meticulously human-crafted.*
-- **Q: Do I maintain control over what gets published?**
-  *A: Yes. All content is scheduled 14 days in advance into your private approval portal where you have full veto and edit rights.*
-- **Q: Are there long-term contracts?**
-  *A: No. Zelvora operates strictly on rolling 30-day agreements with a simple 14-day cancellation notice.*
+## 6. Primary Action / Offer
+- **Primary CTA**: Request a Private Visibility Audit (/contact)
+- **Turnaround**: Delivered within 48 hours to the managing partner's work email. Includes peer footprint benchmark and 2 custom post concepts.
 
 ---
 
 ## 7. Machine-Readable Endpoints
-- GET `/api/faq` - Returns all active FAQ items
-- GET `/api/pricing` - Returns all current pricing tiers
-- GET `/api/portfolio` - Returns case study portfolio items
-- GET `/api/blogs` - Returns published strategy insights
-- POST `/api/contact` - Accepts JSON payload to register new prospective client briefs
+- GET `/api/faq` - Returns active FAQ items
+- GET `/api/pricing` - Returns current pricing tiers
+- GET `/api/portfolio` - Returns illustrative deliverable samples
+- GET `/api/blogs` - Returns editorial insights
+- GET `/api/ai-summary` - Comprehensive machine-readable studio context
+- POST `/api/contact` - Submits a Private Visibility Audit brief

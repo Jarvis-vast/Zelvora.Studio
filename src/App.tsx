@@ -20,8 +20,72 @@ import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
 
 export default function App() {
-  const [activePage, setActivePage] = useState<string>("home");
+  const getPageFromPath = (path: string): string => {
+    const cleanPath = path.toLowerCase().replace(/^\/|\/$/g, "");
+    if (!cleanPath || cleanPath === "home") return "home";
+    if (cleanPath === "audit" || cleanPath === "contact" || cleanPath === "inquiry") return "contact";
+    if (cleanPath === "insights" || cleanPath === "blog") return "blog";
+    if (cleanPath === "login" || cleanPath === "admin-login") return "admin-login";
+    const validPages = ["services", "industries", "process", "portfolio", "pricing", "about", "terms", "privacy", "admin"];
+    if (validPages.includes(cleanPath)) return cleanPath;
+    return "home";
+  };
+
+  const [activePage, setActivePageState] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      return getPageFromPath(window.location.pathname);
+    }
+    return "home";
+  });
   const [adminToken, setAdminToken] = useState<string | null>(null);
+
+  // Navigate function that pushes browser history
+  const setActivePage = (page: string, pushHistory = true) => {
+    setActivePageState(page);
+    if (pushHistory && typeof window !== "undefined") {
+      const targetPath = page === "home" ? "/" : `/${page}`;
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ page }, "", targetPath);
+      }
+    }
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  // Sync with browser navigation (Back/Forward)
+  useEffect(() => {
+    const handlePopState = () => {
+      const pageFromUrl = getPageFromPath(window.location.pathname);
+      setActivePageState(pageFromUrl);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  // Update document title per page
+  useEffect(() => {
+    const titleMap: Record<string, string> = {
+      home: "Zelvora Studio — Outsourced Executive Content & Visibility for Advisory Firms",
+      contact: "Request a Private Visibility Audit — Zelvora Studio",
+      services: "Executive Editorial Capabilities & Scope — Zelvora Studio",
+      pricing: "Advisory Investment & Scopes — Zelvora Studio",
+      portfolio: "Illustrative Executive Work Samples — Zelvora Studio",
+      process: "The Autopilot Editorial Workflow — Zelvora Studio",
+      industries: "Specialized Practice Areas — Zelvora Studio",
+      about: "About Zelvora Studio — Executive Visibility Team",
+      blog: "Advisory Insights & Editorial Standards — Zelvora Studio",
+      admin: "Editorial Administration Desk — Zelvora Studio",
+      "admin-login": "Staff Login — Zelvora Studio",
+      terms: "Terms of Creative Service — Zelvora Studio",
+      privacy: "Privacy Architecture — Zelvora Studio"
+    };
+
+    if (typeof document !== "undefined") {
+      document.title = titleMap[activePage] || "Zelvora Studio — Outsourced Executive Content";
+    }
+  }, [activePage]);
 
   // Core Data Tables
   const [faqs, setFaqs] = useState<FAQ[]>([]);
@@ -65,6 +129,7 @@ export default function App() {
   const handleLoginSuccess = (token: string) => {
     setAdminToken(token);
     localStorage.setItem("zelvora_admin_token", token);
+    setActivePage("admin");
   };
 
   // Handle Logout

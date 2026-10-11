@@ -64,25 +64,25 @@ export default function CopywriterTool() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <span className="p-1.5 rounded-md bg-brand-coral/10 text-brand-coral border border-brand-coral/15">
-                <Sparkles size={16} className="animate-pulse" />
+                <Sparkles size={16} />
               </span>
-              <span className="text-xs font-mono text-brand-coral font-bold uppercase tracking-wider">Zelvora Studio Co-Pilot</span>
+              <span className="text-xs font-mono text-brand-coral font-bold uppercase tracking-wider">Editorial Taxonomy Sandbox</span>
             </div>
             
             <h3 className="font-serif font-semibold text-2xl text-brand-charcoal tracking-tight mb-2">
-              Generate High-End Visibility Assets
+              Test Our Strategic Concept Architecture
             </h3>
             <p className="text-sm text-brand-stone/70 font-sans leading-relaxed mb-6">
-              Sample our bespoke content architecture. Outline a dynamic social strategy customized to your exact firm in seconds.
+              Sample our structured content taxonomy. Outline an initial executive hook and framework slide blueprint tailored to your practice area.
             </p>
 
             <form onSubmit={handleGenerate} className="space-y-4">
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-brand-stone/60 mb-1.5 font-bold">Business Name *</label>
+                <label className="block text-xs font-mono uppercase tracking-wider text-brand-stone/60 mb-1.5 font-bold">Practice / Firm Name *</label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Jenkins Executive Advisory"
+                  placeholder="e.g. Vance Strategy Partners"
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-lg border border-brand-charcoal/10 bg-brand-cream/40 text-sm text-brand-charcoal placeholder:text-brand-stone/40 focus:outline-none focus:border-brand-coral focus:bg-white transition-all font-sans font-medium"
@@ -91,18 +91,16 @@ export default function CopywriterTool() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-brand-stone/60 mb-1.5 font-bold">Industry Focus</label>
+                  <label className="block text-xs font-mono uppercase tracking-wider text-brand-stone/60 mb-1.5 font-bold">Practice Area</label>
                   <select
                     value={industry}
                     onChange={(e) => setIndustry(e.target.value)}
                     className="w-full px-4 py-2.5 rounded-lg border border-brand-charcoal/10 bg-brand-cream/40 text-sm text-brand-charcoal focus:outline-none focus:border-brand-coral focus:bg-white transition-all font-sans font-medium"
                   >
-                    <option value="Coaching / Consulting" className="bg-white text-brand-charcoal">Coaching & Advising</option>
-                    <option value="Real Estate" className="bg-white text-brand-charcoal">Luxury Real Estate</option>
-                    <option value="Finance & Wealth" className="bg-white text-brand-charcoal">Wealth Management</option>
-                    <option value="Legal & Advisory" className="bg-white text-brand-charcoal">Law / Advisory Firms</option>
-                    <option value="Technology & Startups" className="bg-white text-brand-charcoal">Startups / Technology</option>
-                    <option value="Medical & Aesthetics" className="bg-white text-brand-charcoal">Medical Practices</option>
+                    <option value="Boutique Management Consulting" className="bg-white text-brand-charcoal">Boutique Management Consulting</option>
+                    <option value="Executive Leadership & Strategy" className="bg-white text-brand-charcoal">Executive Leadership & Strategy</option>
+                    <option value="M&A & Corporate Finance" className="bg-white text-brand-charcoal">M&A & Corporate Finance</option>
+                    <option value="Specialized Professional Practice" className="bg-white text-brand-charcoal">Specialized Advisory / Legal</option>
                   </select>
                 </div>
 
@@ -113,19 +111,19 @@ export default function CopywriterTool() {
                     onChange={(e) => setContentType(e.target.value)}
                     className="w-full px-4 py-2.5 rounded-lg border border-brand-charcoal/10 bg-brand-cream/40 text-sm text-brand-charcoal focus:outline-none focus:border-brand-coral focus:bg-white transition-all font-sans font-medium"
                   >
-                    <option value="LinkedIn Educational Carousel" className="bg-white text-brand-charcoal">Educational Carousel</option>
-                    <option value="Executive Thought Leadership Essay" className="bg-white text-brand-charcoal">Thought Leadership Essay</option>
-                    <option value="High-Impact Social Thread" className="bg-white text-brand-charcoal">Twitter/X Authority Thread</option>
-                    <option value="Email Newsletter Curation" className="bg-white text-brand-charcoal">Email Newsletter Campaign</option>
+                    <option value="Typographic LinkedIn Carousel" className="bg-white text-brand-charcoal">Typographic Framework Carousel</option>
+                    <option value="Contrarian Executive Commentary" className="bg-white text-brand-charcoal">Contrarian Executive Commentary</option>
+                    <option value="Executive Newsletter Brief" className="bg-white text-brand-charcoal">Executive Newsletter Brief</option>
+                    <option value="Twitter/X Framework Thread" className="bg-white text-brand-charcoal">Twitter/X Framework Thread</option>
                   </select>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-brand-stone/60 mb-1.5 font-bold">Target Client Persona</label>
+                <label className="block text-xs font-mono uppercase tracking-wider text-brand-stone/60 mb-1.5 font-bold">Target Enterprise Buyer</label>
                 <input
                   type="text"
-                  placeholder="e.g. Venture Capitalists or HNW homeowners (Optional)"
+                  placeholder="e.g. Enterprise CEOs, PE Operating Partners, Board Members"
                   value={targetAudience}
                   onChange={(e) => setTargetAudience(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-lg border border-brand-charcoal/10 bg-brand-cream/40 text-sm text-brand-charcoal placeholder:text-brand-stone/40 focus:outline-none focus:border-brand-coral focus:bg-white transition-all font-sans font-medium"

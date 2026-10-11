@@ -1,10 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 
-function sanitizeSupabaseUrl(candidate?: string | null): string {
-  const fallback = "https://jtcrrnngbgrmqczerfve.supabase.co";
-  if (!candidate || typeof candidate !== "string") return fallback;
+function sanitizeSupabaseUrl(candidate?: string | null): string | null {
+  if (!candidate || typeof candidate !== "string") return null;
   const trimmed = candidate.trim().replace(/^["']|["']$/g, "");
-  if (!trimmed || trimmed === "undefined" || trimmed === "null" || trimmed === "MY_APP_URL") return fallback;
+  if (!trimmed || trimmed === "undefined" || trimmed === "null" || trimmed === "MY_APP_URL" || trimmed.includes("jtcrrnngbgrmqczerfve")) return null;
   try {
     const formatted = trimmed.startsWith("http://") || trimmed.startsWith("https://") ? trimmed : `https://${trimmed}`;
     const parsed = new URL(formatted);
@@ -12,16 +11,15 @@ function sanitizeSupabaseUrl(candidate?: string | null): string {
       return parsed.origin;
     }
   } catch (_) {
-    // fallback
+    return null;
   }
-  return fallback;
+  return null;
 }
 
-function sanitizeSupabaseKey(candidate?: string | null): string {
-  const fallback = "sb_publishable_tL4BeZffytf20JOYhC6SGA_n06AB01-";
-  if (!candidate || typeof candidate !== "string") return fallback;
+function sanitizeSupabaseKey(candidate?: string | null): string | null {
+  if (!candidate || typeof candidate !== "string") return null;
   const trimmed = candidate.trim().replace(/^["']|["']$/g, "");
-  if (!trimmed || trimmed === "undefined" || trimmed === "null") return fallback;
+  if (!trimmed || trimmed === "undefined" || trimmed === "null" || trimmed.includes("sb_publishable_tL4BeZffytf20JOYhC6SGA_n06AB01-")) return null;
   return trimmed;
 }
 
@@ -36,6 +34,7 @@ const rawEnvKey =
 export const createServerClient = () => {
   const url = sanitizeSupabaseUrl(rawEnvUrl);
   const key = sanitizeSupabaseKey(rawEnvKey);
+  if (!url || !key) return null;
   return createClient(url, key, {
     auth: {
       persistSession: false,
